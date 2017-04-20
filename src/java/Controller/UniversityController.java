@@ -4,6 +4,7 @@
  */
 package controller;
 
+import DAO.UniversityDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.UniversityBean;
@@ -35,7 +36,12 @@ public class UniversityController {
     }
 
     public String createProfile() {
-        //TODO
-        return "TODO";
+        UniversityDAO uniDao = new UniversityDAO();
+        if(uniDao.createUniversity(theModel) == 11){
+            return "universityPage.xhtml";
+        }
+        else{
+            return "index.xhtml";
+        }
     }
 }

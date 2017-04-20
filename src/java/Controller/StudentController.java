@@ -19,15 +19,6 @@ public class StudentController {
 
     // This corresponds to the response to be sent back to the client
     private StudentBean theModel;
-    private boolean sendSMS;
-
-    public boolean isSendSMS() {
-        return sendSMS;
-    }
-
-    public void setSendSMS(boolean sendSMS) {
-        this.sendSMS = sendSMS;
-    }
 
     /**
      * Creates a new instance of ProfileController
@@ -47,7 +38,11 @@ public class StudentController {
     public String createProfile() {
         StudentDAO stu = new StudentDAO();
         int a  = stu.createStudent(theModel);
-        System.out.println(a);
-        return "index.xhtml";
+        if(a == 11){
+            return "studentPage.xhtml";
+        }
+        else{
+            return "index.xhtml";
+        }
     }
 }
