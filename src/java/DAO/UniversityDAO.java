@@ -35,7 +35,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
             String salt = Hasher.generateHash(universityDAO.getPassword()); //hash the password             
-            String queryString = "INSERT INTO app.university VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; //sql statement
+            String queryString = "INSERT INTO app.university VALUES (?,?,?,?,?,?,?,?,?,?)"; //sql statement
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name
             pstmt.setString(2, universityDAO.getEmail()); //email
@@ -145,7 +145,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
-                    + "video = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
+                    + "video_urls = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
                     + "essay = ?, WHERE university_name = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name           
