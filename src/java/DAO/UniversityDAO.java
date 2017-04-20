@@ -125,7 +125,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
     }
 
     @Override
-    public ArrayList<UniversityBean> searchUniversity(ArrayList<String> searchInfo) {
+    public ArrayList<UniversityBean> searchUniversity(UniversityBean searchUniversity) {
         ArrayList<UniversityBean> universities = new ArrayList<UniversityBean>();
         
         
@@ -191,12 +191,61 @@ public class UniversityDAO implements UniversityDAO_Interface{
 
     @Override
     public UniversityBean getUniversityInfo(String universityName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        UniversityBean student = new UniversityBean();
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }       
+        try {
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String queryString = "SELECT * FROM app.university WHERE email = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setString(1, universityName); //email
+            ResultSet rs = pstmt.executeQuery();                                                        
+            //set student to the values in rs
+            student.setUniversityName(rs.getString("university_name")); //university
+            student.setEmail(rs.getString("email")); //email        
+            student.setVideoURL(rs.getString("video_urls")); //video
+            student.setImageURL(rs.getString("images")); //images
+            student.setMajors(rs.getString("major")); //major
+            student.setState(rs.getString("state")); //state 
+            student.setCity(rs.getString("city")); //city
+            student.setCost(rs.getDouble("cost")); //cost
+            student.setEssay(rs.getString("essay")); //essay
+            
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }       
+        return student;
     }
 
     @Override
     public int changePassword(String universityName, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rowCount = 0;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }       
+        try {
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String queryString = "UPDATE app.university SET password  = ? WHERE university_name = ?"; //sql statement                       
+            String salt = Hasher.generateHash(password); //hash the password            
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setString(1, salt); //password
+            pstmt.setString(2, universityName); //email            
+            rowCount = pstmt.executeUpdate(); //database call
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }        
+        return rowCount;  
     }
     
 }

@@ -137,7 +137,7 @@ public class StudentDAO implements StudentDAO_Interface{
      * @return ArrayList of student records that match the search information given.
      */
     @Override
-    public ArrayList<StudentBean> findStudents(ArrayList<String> searchInfo) {
+    public ArrayList<StudentBean> findStudents(StudentBean searchStudent) {
         ArrayList studentBeanCollection = new ArrayList();
         /*
         try {

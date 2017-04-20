@@ -12,7 +12,7 @@ public interface UniversityDAO_Interface {
     public int createUniversity(UniversityBean universityDAO);
     public boolean checkUniversityName(String universityName);      
     public boolean universityLogin(String universityName, String password);
-    public ArrayList<UniversityBean> searchUniversity(ArrayList<String> searchInfo);
+    public ArrayList<UniversityBean> searchUniversity(UniversityBean searchUniversity); //name, state, city, cost, majors
     public int updateUniversity(UniversityBean universityDAO, String originalUniversityName);
     public UniversityBean getUniversityInfo(String universityName);
     public int changePassword(String universityName, String password);
