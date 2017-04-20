@@ -8,7 +8,6 @@ import DAO.StudentDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
-import Model.UniversityBean;
 
 /**
  *
@@ -20,7 +19,6 @@ public class StudentController {
 
     // This corresponds to the response to be sent back to the client
     private StudentBean theModel;
-    private UniversityBean searchModel; //add getters and setters for this
 
     /**
      * Creates a new instance of ProfileController
@@ -38,35 +36,9 @@ public class StudentController {
     }
 
     public String createProfile() {
-        StudentDAO stuDao = new StudentDAO();
-        int rtrn = stuDao.createStudent(theModel);
-        if(rtrn > 0){
-            return "TODO";
-        }
-        else{
-            return "TODO";
-        }
-        //TODO Check for email in this method or in a different?
-    }
-    
-    /*public void checkEmail(){
-        StudentDAO stuDao = new StudentDAO();
-        S
-    }*/
-    
-    public String logIn(){
-        StudentDAO stuDao = new StudentDAO();
-        if(stuDao.studentLogin(theModel.getEmail(), theModel.getPassword())){
-            return "TODO";
-        }
-        else{
-            return "TODO";
-        }
-    }
-    
-    public String searchUniversity(){
-        //Code to access database
-        //Returns a xhtml file that will use the database
-        return "TODO";
+        StudentDAO stu = new StudentDAO();
+        int a  = stu.createStudent(theModel);
+        System.out.println(a);
+        return "index.xhtml";
     }
 }

@@ -35,7 +35,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
             String salt = Hasher.generateHash(universityDAO.getPassword()); //hash the password             
-            String queryString = "INSERT INTO itkstu.university VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; //sql statement
+            String queryString = "INSERT INTO app.university VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; //sql statement
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name
             pstmt.setString(2, universityDAO.getEmail()); //email
@@ -49,7 +49,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             pstmt.setString(10, universityDAO.getEssay()); //essay          
             rowCount = 10 * pstmt.executeUpdate(); //times 10 to keep a binary track of what successfully add to database            
             if (universityDAO.getMailList()){ //if mailing list is checked then add to mailing list
-                queryString = "INSERT INTO itkstu.mail_list VALUES (?)";
+                queryString = "INSERT INTO app.mail_list VALUES (?)";
                 pstmt = DBConn.prepareStatement(queryString);
                 pstmt.setString(1, universityDAO.getEmail());
                 rowCount += pstmt.executeUpdate();           
@@ -80,9 +80,9 @@ public class UniversityDAO implements UniversityDAO_Interface{
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/LinkedU";// connection string
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
-            String queryString = "SELECT university_name FROM itkstu.university WHERE university_name = ?"; //sql statement
+            String queryString = "SELECT university_name FROM app.university WHERE university_name = ?"; //sql statement
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityName);            
             ResultSet rs = pstmt.executeQuery(); //sql call           
@@ -109,10 +109,10 @@ public class UniversityDAO implements UniversityDAO_Interface{
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/LinkedU";// connection string
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String salt = Hasher.generateHash(password); //hash the password               
-            String queryString = "SELECT university_name, password FROM itkstu.university WHERE university_name = ? and password = '" + salt + "'"; //sql statement
+            String queryString = "SELECT university_name, password FROM app.university WHERE university_name = ? and password = '" + salt + "'"; //sql statement
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityName);            
             ResultSet rs = pstmt.executeQuery(); //sql call          
@@ -142,9 +142,9 @@ public class UniversityDAO implements UniversityDAO_Interface{
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/LinkedU";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String queryString = "UPDATE itkstu.university SET university_name = ?, email = ?, "
+            String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
                     + "video = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
                     + "essay = ?, WHERE university_name = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
@@ -162,21 +162,21 @@ public class UniversityDAO implements UniversityDAO_Interface{
             rowCount = 10 * pstmt.executeUpdate(); //times 10 to keep a binary track of what successfully add to database                       
             
             //checks if email is in mail_list
-            queryString = "SELECT email FROM itkstu.mail_list WHERE email = ?";                
+            queryString = "SELECT email FROM app.mail_list WHERE email = ?";                
             pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getEmail());
             ResultSet rs = pstmt.executeQuery();
             
             if (universityDAO.getMailList()){ //if mailing list is checked then add to mail_list               
                 if (!rs.next()) { //email isn't in list already so add to mail_list
-                    queryString = "INSERT INTO itkstu.mail_list VALUES (?)";
+                    queryString = "INSERT INTO app.mail_list VALUES (?)";
                     pstmt = DBConn.prepareStatement(queryString);
                     pstmt.setString(1, universityDAO.getEmail());
                     rowCount += pstmt.executeUpdate();          
                 } else rowCount++; //email is in the list then don't add                         
             } else { //don't add to mail_list or remove from mail_list
                if (rs.next()) { //delete record from mail_list
-                   queryString = "DELTE FROM itkstu.mail_list WHERE email = ?";
+                   queryString = "DELTE FROM app.mail_list WHERE email = ?";
                    pstmt = DBConn.prepareStatement(queryString);
                    pstmt.setString(1, universityDAO.getEmail());
                    rowCount += pstmt.executeUpdate();
