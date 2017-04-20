@@ -19,6 +19,15 @@ public class StudentController {
 
     // This corresponds to the response to be sent back to the client
     private StudentBean theModel;
+    private boolean sendSMS;
+
+    public boolean isSendSMS() {
+        return sendSMS;
+    }
+
+    public void setSendSMS(boolean sendSMS) {
+        this.sendSMS = sendSMS;
+    }
 
     /**
      * Creates a new instance of ProfileController
