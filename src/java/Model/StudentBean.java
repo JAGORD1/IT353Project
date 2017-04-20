@@ -28,15 +28,13 @@ public class StudentBean {
     private String essay;
     private String universities;
     private String majors;
-    private String activities;
     private String mixtapeURL;
     private String imageURL;
     private boolean mailList;
 
     public StudentBean(String email, String password, String password2, String firstName, 
             String lastName, String phoneNumber, String provider, int ACTScore, int SATScore, 
-            int PSATScore, String highSchool, String essay, String universities, String majors, 
-            String activities, String mixtapeURL, String imageURL, boolean mailList) {
+            int PSATScore, String highSchool, String essay, String universities, String majors, String mixtapeURL, String imageURL, boolean mailList) {
         this.email = email;
         this.password = password;
         this.password2 = password2;
@@ -51,7 +49,6 @@ public class StudentBean {
         this.essay = essay;
         this.universities = universities;
         this.majors = majors;
-        this.activities = activities;
         this.mixtapeURL = mixtapeURL;
         this.imageURL = imageURL;
         this.mailList = mailList;
@@ -167,14 +164,6 @@ public class StudentBean {
 
     public void setMajors(String majors) {
         this.majors = majors;
-    }
-
-    public String getActivities() {
-        return activities;
-    }
-
-    public void setActivities(String activities) {
-        this.activities = activities;
     }
 
     public String getMixtapeURL() {
