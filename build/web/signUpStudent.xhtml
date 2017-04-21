@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>JSF 2.0 101</title>
+    </h:head>
+    <h:body>
+        <h2>LinkedU Signup Student</h2><br/>
+        <h:graphicImage value="http://linkeduniversity.com/wp-content/uploads/2015/09/linkedu.png" width="200" height="180"/>
+
+        <h:form>
+            <h:panelGrid columns="2">
+            Email: <h:inputText id="email" value="#{studentController.theModel.email}">
+            </h:inputText>
+            Password: <h:inputSecret id="password" value="#{studentController.theModel.password}">
+            </h:inputSecret>
+            Confirm Password: <h:inputSecret id="confirmPassword" value="#{studentController.theModel.password2}">
+            </h:inputSecret>
+            First Name: <h:inputText id="firstName" value="#{studentController.theModel.firstName}">
+            </h:inputText>
+            Last Name: <h:inputText id="lastName" value="#{studentController.theModel.lastName}">
+            </h:inputText>
+            Phone Number: <h:inputText id="phoneNumber" value="#{studentController.theModel.phoneNumber}">
+            </h:inputText>
+            Provider: <h:inputText id="provider" value="#{studentController.theModel.provider}">
+            </h:inputText>
+            ACT Score: <h:inputText id="ACTScore" value="#{studentController.theModel.ACTScore}">
+            </h:inputText>
+            SAT Score: <h:inputText id="SATScore" value="#{studentController.theModel.SATScore}">
+            </h:inputText>
+            PSAT/NMSQT Score: <h:inputText id="PSATScore" value="#{studentController.theModel.PSATScore}">
+            </h:inputText>
+            High School: <h:inputText id="highSchool" value="#{studentController.theModel.highSchool}">
+            </h:inputText>
+            Essay: <h:inputTextarea rows = "10" cols = "75" id="Essay" value="#{studentController.theModel.essay}">
+            </h:inputTextarea>
+            Universities (Separated by commas): <h:inputText id="universities" value="#{studentController.theModel.universities}">
+            </h:inputText>
+            Majors (Separated by commas): <h:inputText id="majors" value="#{studentController.theModel.majors}">
+            </h:inputText>
+            Mixtape URL: <h:inputText id="mixtapeURL" value="#{studentController.theModel.mixtapeURL}">
+            </h:inputText>
+            Image URL: <h:inputText id="imageURL" value="#{studentController.theModel.imageURL}">
+            </h:inputText>
+             Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{studentController.theModel.mailList}" id = "subscribe" />
+            </h:panelGrid>
+
+
+<!--            <h:commandButton id="submitID" value="Submit" action="response.xhtml"/>-->
+            <h:commandButton id="submitID" value="Submit" action="#{studentController.createProfile()}"/>
+        </h:form>
+
+    </h:body>
+</html>
+
