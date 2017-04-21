@@ -44,4 +44,15 @@ public class UniversityController {
             return "index.xhtml";
         }
     }
+    
+    public String login(){
+        UniversityDAO uniDao = new UniversityDAO();
+        if(uniDao.universityLogin(theModel.getUniversityName(), theModel.getPassword())){
+            uniDao.getUniversityInfo(theModel.getUniversityName());
+            return "universityPage.xhtml";
+        }
+        else{
+            return "index.xhtml";
+        }
+    }
 }
