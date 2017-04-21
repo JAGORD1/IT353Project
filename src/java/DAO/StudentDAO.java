@@ -273,10 +273,11 @@ public class StudentDAO implements StudentDAO_Interface{
             pstmt.setString(1, email); //email
             ResultSet rs = pstmt.executeQuery();                                                        
             //set student to the values in rs
+            rs.next();
             student.setFirstName(rs.getString("first_name")); //first name
             student.setLastName(rs.getString("last_name")); //last name        
-            student.setACTScore(rs.getInt("act")); //act
-            student.setSATScore(rs.getInt("sat")); //sat
+            student.setACTScore(rs.getInt("act_score")); //aSct
+            student.setSATScore(rs.getInt("sat_score")); //sat
             student.setPSATScore(rs.getInt("psat_nmsqt")); //psat
             student.setEssay(rs.getString("essay")); //essay 
             student.setEmail(rs.getString("email")); //email
