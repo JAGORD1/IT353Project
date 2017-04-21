@@ -95,7 +95,7 @@ public class StudentController {
         String to = destination;
 
         // Sender's email ID needs to be mentioned
-        String from = "caferg2@ilstu.edu";
+        String from = "";
         
         // Assuming you are sending email from this host
         String host = "outlook.office365.com";
@@ -111,7 +111,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("caferg2@ilstu.edu", "");
+                return new PasswordAuthentication("", "");
             }
         });
 
