@@ -147,4 +147,15 @@ public class StudentController {
         edu.ilstu.it.TextSender port = service.getTextSenderPort();
         port.sendSMS(arg0, arg1, arg2);
     }
+    
+    public String login(){
+        StudentDAO stu = new StudentDAO();
+        if(stu.studentLogin(theModel.getEmail(), theModel.getPassword())){
+            theModel =stu.getStudentInfo(theModel.getEmail());
+            return "studentPage.xhtml";
+        }
+        else{
+            return "index.xhtml";
+        }
+    }
 }
