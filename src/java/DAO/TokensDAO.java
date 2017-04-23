@@ -24,16 +24,28 @@ public class TokensDAO implements TokensDAO_Interface{
         } catch (ClassNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(0);
-        }
+        }     
         int rowCount = 0;
         long token = 0;
         try {
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
             
+            //check if exist
+            String queryString2 = "SELECT id FROM app.tokens WHERE id = ?";
+            PreparedStatement pstmt2 = DBConn.prepareStatement(queryString2);
+            pstmt2.setString(1, id); //id
+            ResultSet rs = pstmt2.executeQuery();
+            if (rs.next()) { //delete row
+               queryString2 = "DELETE FROM app.tokens WHERE id = ?";
+               pstmt2 = DBConn.prepareStatement(queryString2);
+               pstmt2.setString(1, id);
+               rowCount += pstmt2.executeUpdate();
+            }            
+            
             Random rand = new Random();
             
-            while (rowCount == 0) {
+            while (rowCount == 0) {          
                 int n = rand.nextInt(10000);//gets a random number under 10,000
                 long millis = System.currentTimeMillis();
                 token = millis + n; //hash this
@@ -46,8 +58,8 @@ public class TokensDAO implements TokensDAO_Interface{
                 pstmt.setString(2, hash); //token
                 java.sql.Timestamp time = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()); //gets current time
                 System.out.println(time);
-                pstmt.setTimestamp(3, time); //timestamp
-
+                pstmt.setTimestamp(3, time); //timestamp                
+                
                 rowCount = pstmt.executeUpdate(); //adds to tokens
             }
             
