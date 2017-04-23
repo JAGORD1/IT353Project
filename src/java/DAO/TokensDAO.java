@@ -40,7 +40,7 @@ public class TokensDAO implements TokensDAO_Interface{
                queryString2 = "DELETE FROM app.tokens WHERE id = ?";
                pstmt2 = DBConn.prepareStatement(queryString2);
                pstmt2.setString(1, id);
-               rowCount += pstmt2.executeUpdate();
+               pstmt2.executeUpdate();
             }            
             
             Random rand = new Random();
