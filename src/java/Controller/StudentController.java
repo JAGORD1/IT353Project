@@ -10,6 +10,9 @@ import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
 import edu.ilstu.it.TextSenderService;
 import java.util.Properties;
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -33,6 +36,7 @@ public class StudentController {
     private StudentBean theModel;
     private String resetEmail;
     private boolean sendSMS;
+    private boolean loggedIn = false;
 
     public boolean isSendSMS() {
         return sendSMS;
@@ -69,6 +73,7 @@ public class StudentController {
         StudentDAO stu = new StudentDAO();
         int a  = stu.createStudent(theModel);
         if(a == 11){
+            loggedIn = true;
             return "studentPage.xhtml";
         }
         else{
@@ -152,10 +157,36 @@ public class StudentController {
         StudentDAO stu = new StudentDAO();
         if(stu.studentLogin(theModel.getEmail(), theModel.getPassword())){
             theModel =stu.getStudentInfo(theModel.getEmail());
+            loggedIn = true;
             return "studentPage.xhtml";
         }
         else{
             return "index.xhtml";
         }
+    }
+    
+    
+    //------------Needs upload. signUpStudent.xhtml needs upload too along with updateStudent.xhtml-----------
+    public String update(){
+        StudentDAO stu = new StudentDAO();
+        if(stu.updateStudent(theModel, theModel.getEmail()) == 11){
+            return "studentPage.xhtml";
+        }
+        else{
+            return "index.xhtml";
+        }
+    }
+    
+    public String isLoggedIn(ComponentSystemEvent event) {
+        String navi = null;
+
+        if (!loggedIn) {
+
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("index?faces-redirect=true");
+        }
+        
+        return navi;
     }
 }
