@@ -202,7 +202,7 @@ public class StudentDAO implements StudentDAO_Interface{
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String queryString = "UPDATE app.student SET email = ?, first_name = ?, last_name = ?, "
                     + "act_score = ?, sat_score = ?, psat_nmsqt = ?, essay = ?, universities = ?, majors = ?, "
-                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ?, password  = ? "
+                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ? "
                     + "WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, studentDAO.getEmail()); //email
@@ -238,7 +238,7 @@ public class StudentDAO implements StudentDAO_Interface{
                 } else rowCount++; //email is in the list then don't add                         
             } else { //don't add to mail_list or remove from mail_list
                if (rs.next()) { //delete record from mail_list
-                   queryString = "DELTE FROM app.mail_list WHERE email = ?";
+                   queryString = "DELETE FROM app.mail_list WHERE email = ?";
                    pstmt = DBConn.prepareStatement(queryString);
                    pstmt.setString(1, studentDAO.getEmail());
                    rowCount += pstmt.executeUpdate();
@@ -285,9 +285,9 @@ public class StudentDAO implements StudentDAO_Interface{
             student.setMajors(rs.getString("majors")); //majors
             student.setMixtapeURL(rs.getString("video")); //video
             student.setHighSchool(rs.getString("highschool")); //highschool
-            student.setPhoneNumber("phone_number"); //phone number
-            student.setImageURL("images"); //images
-            student.setProvider("phone_carrier"); //phone provider
+            student.setPhoneNumber(rs.getString("phone_number")); //phone number
+            student.setImageURL(rs.getString("images")); //images
+            student.setProvider(rs.getString("phone_carrier")); //phone provider
             student.setPassword(""); //password to null
             DBConn.close();
         } catch (SQLException e) {

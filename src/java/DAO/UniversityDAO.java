@@ -146,19 +146,19 @@ public class UniversityDAO implements UniversityDAO_Interface{
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
                     + "video_urls = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
-                    + "essay = ?, WHERE university_name = ?";
+                    + "essay = ? WHERE university_name = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name           
             pstmt.setString(2, universityDAO.getEmail()); //email
             //doesn't update password
-            pstmt.setString(4, universityDAO.getVideoURL()); //video
-            pstmt.setString(5, universityDAO.getImageURL()); //image
-            pstmt.setString(6, universityDAO.getMajors()); //majors           
-            pstmt.setString(7, universityDAO.getState()); //state
-            pstmt.setString(8, universityDAO.getCity()); //city           
-            pstmt.setDouble(9, universityDAO.getCost()); //cost
-            pstmt.setString(10, universityDAO.getEssay()); //essay                       
-            pstmt.setString(11, originalUniversityName); //original university name            
+            pstmt.setString(3, universityDAO.getVideoURL()); //video
+            pstmt.setString(4, universityDAO.getImageURL()); //image
+            pstmt.setString(5, universityDAO.getMajors()); //majors           
+            pstmt.setString(6, universityDAO.getState()); //state
+            pstmt.setString(7, universityDAO.getCity()); //city           
+            pstmt.setDouble(8, universityDAO.getCost()); //cost
+            pstmt.setString(9, universityDAO.getEssay()); //essay                       
+            pstmt.setString(10, originalUniversityName); //original university name            
             rowCount = 10 * pstmt.executeUpdate(); //times 10 to keep a binary track of what successfully add to database                       
             
             //checks if email is in mail_list
@@ -176,7 +176,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 } else rowCount++; //email is in the list then don't add                         
             } else { //don't add to mail_list or remove from mail_list
                if (rs.next()) { //delete record from mail_list
-                   queryString = "DELTE FROM app.mail_list WHERE email = ?";
+                   queryString = "DELETE FROM app.mail_list WHERE email = ?";
                    pstmt = DBConn.prepareStatement(queryString);
                    pstmt.setString(1, universityDAO.getEmail());
                    rowCount += pstmt.executeUpdate();
@@ -201,11 +201,12 @@ public class UniversityDAO implements UniversityDAO_Interface{
         try {
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String queryString = "SELECT * FROM app.university WHERE email = ?";
+            String queryString = "SELECT * FROM app.university WHERE UNIVERSITY_NAME = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityName); //email
             ResultSet rs = pstmt.executeQuery();                                                        
             //set student to the values in rs
+            rs.next();
             student.setUniversityName(rs.getString("university_name")); //university
             student.setEmail(rs.getString("email")); //email        
             student.setVideoURL(rs.getString("video_urls")); //video
