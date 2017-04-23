@@ -96,7 +96,7 @@ public class TokensDAO implements TokensDAO_Interface{
             if (rs.next()) {
                 //check timestamp
                 //if (rs.getTimestamp("timestamp") );
-                id = rs.getString(id); //get id               
+                id = rs.getString("id"); //get id               
             }           
             DBConn.close();
         } catch (SQLException e) {
