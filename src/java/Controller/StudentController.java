@@ -5,6 +5,7 @@
 package controller;
 
 import DAO.StudentDAO;
+import DAO.TokensDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
@@ -37,6 +38,31 @@ public class StudentController {
     private String resetEmail;
     private boolean sendSMS;
     private boolean loggedIn = false;
+    private String token;
+
+    public TextSenderService getService() {
+        return service;
+    }
+
+    public void setService(TextSenderService service) {
+        this.service = service;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public boolean isSendSMS() {
         return sendSMS;
@@ -86,16 +112,22 @@ public class StudentController {
         StudentDAO data = new StudentDAO();
         
         StudentBean temp = data.getStudentInfo(resetEmail);
+       
+        TokensDAO dao = new TokensDAO();
+       
+        String newToken = dao.submitToken(resetEmail);
+        
+        String url = "http://gfish2.it.ilstu.edu/caferg2_spring2017_LinkedU/faces/changePassword.xhtml?token=" + newToken;
         
         if (temp != null) {
-               sendEmail(temp.getEmail());
-               if (sendSMS) sendSMS(temp.getProvider(), temp.getPhoneNumber(), "Reset password link here");
+               sendEmail(temp.getEmail(), url);
+               if (sendSMS) sendSMS(temp.getProvider(), temp.getPhoneNumber(), url);
                return "resetSent.xhtml";
         }
         else return "resetFailed.xhtml";
     }
     
-    public void sendEmail(String destination) {
+    public void sendEmail(String destination ,String sendMessage) {
         // Recipient's email ID needs to be mentioned.
         String to = destination;
 
@@ -116,7 +148,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("", "");
+                return new PasswordAuthentication("caferg2@ilstu.edu", "/Buckdog00885");
             }
         });
 
@@ -135,7 +167,7 @@ public class StudentController {
             message.setSubject("LinkedU Password Reset");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("Reset password link here",
+            message.setContent(sendMessage,
                     "text/html");
 
             // Send message
@@ -188,5 +220,34 @@ public class StudentController {
         }
         
         return navi;
+    }
+    
+    public String checkToken(ComponentSystemEvent event) {
+        String navi = null;
+        
+        TokensDAO dao = new TokensDAO();
+        
+        String tokenEmail = dao.verifyToken(token);
+
+        if (tokenEmail.equals("")) {
+
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("index?faces-redirect=true");
+        }
+        else {
+            theModel.setEmail(tokenEmail);
+        }
+        
+        return navi;
+    }
+    
+    public String changePassword() {
+        if (theModel.getPassword().equals(theModel.getPassword2())) {
+            StudentDAO stu = new StudentDAO();
+            stu.changePassword(theModel.getEmail(), theModel.getPassword());
+            return "Password Changed";
+        }
+        else return "Passwords Do Not Match";
     }
 }
