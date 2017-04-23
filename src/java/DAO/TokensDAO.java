@@ -18,6 +18,7 @@ import java.util.Random;
  * @author IT353S704
  */
 public class TokensDAO implements TokensDAO_Interface{
+    @Override
     public String submitToken(String id){
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -71,6 +72,7 @@ public class TokensDAO implements TokensDAO_Interface{
         return String.valueOf(token);
     }
     
+    @Override
     public String verifyToken(String token){
         String id = "";
         try {
@@ -87,7 +89,7 @@ public class TokensDAO implements TokensDAO_Interface{
             
             String queryString = "SELECT * FROM app.tokens WHERE token = ?"; //sql statement
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
-            pstmt.setString(1, token);  
+            pstmt.setString(1, salt);  
             
             ResultSet rs = pstmt.executeQuery(); //sql call
 
