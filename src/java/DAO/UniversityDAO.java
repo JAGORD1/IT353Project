@@ -126,10 +126,74 @@ public class UniversityDAO implements UniversityDAO_Interface{
 
     @Override
     public ArrayList<UniversityBean> searchUniversity(UniversityBean searchUniversity) {
-        ArrayList<UniversityBean> universities = new ArrayList<UniversityBean>();
+        ArrayList<UniversityBean> universityBeanCollection = new ArrayList<UniversityBean>();
         
-        
-        return universities;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        try {
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
+            
+            //get search records
+            String queryString = "SELECT * FROM app.university WHERE name LIKE ?, email LIKE ?, "
+                    + "major LIKE ?, state LIKE ?, city LIKE ?, cost <= ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            
+            if (searchUniversity.getUniversityName().isEmpty()) { //university_name
+                pstmt.setString(1, "%");
+            }else pstmt.setString(1, percentWrap(searchUniversity.getUniversityName()));
+            
+            if (searchUniversity.getEmail().isEmpty()) { //email
+                pstmt.setString(2, "%");
+            }else pstmt.setString(2, percentWrap(searchUniversity.getEmail()));
+           
+            if (searchUniversity.getMajors().isEmpty()) { //majors
+                pstmt.setString(3, "%");
+            }else pstmt.setString(3, percentWrap(searchUniversity.getMajors()));
+            
+            if (searchUniversity.getState().isEmpty()) { //state
+                pstmt.setString(4, "%");
+            }else pstmt.setString(4, percentWrap(searchUniversity.getState()));
+            
+            if (searchUniversity.getCity().isEmpty()) { //city
+                pstmt.setString(5, "%");
+            }else pstmt.setString(5, percentWrap(searchUniversity.getCity()));
+            
+            if (searchUniversity.getCost() == -1) { //cost
+                pstmt.setDouble(6, 99999999);
+            }else pstmt.setDouble(6, searchUniversity.getCost());
+            
+            ResultSet rs = pstmt.executeQuery(); //sql look up
+            
+            //for each record received
+            while (rs.next()) {
+                UniversityBean university = new UniversityBean();
+
+                university.setUniversityName(rs.getString("university_name")); //university
+                university.setEmail(rs.getString("email")); //email        
+                university.setVideoURL(rs.getString("video_urls")); //video
+                university.setImageURL(rs.getString("images")); //images
+                university.setMajors(rs.getString("major")); //major
+                university.setState(rs.getString("state")); //state 
+                university.setCity(rs.getString("city")); //city
+                university.setCost(rs.getDouble("cost")); //cost
+                university.setEssay(rs.getString("essay")); //essay
+                
+                universityBeanCollection.add(university);
+            }
+            
+            rs.close();
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return universityBeanCollection;
     }
     
     @Override
@@ -146,7 +210,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
                     + "video_urls = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
-                    + "essay = ? WHERE university_name = ?";
+                    + "essay = ?, WHERE university_name = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name           
             pstmt.setString(2, universityDAO.getEmail()); //email
@@ -191,7 +255,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
 
     @Override
     public UniversityBean getUniversityInfo(String universityName) {
-        UniversityBean student = new UniversityBean();
+        UniversityBean university = new UniversityBean();
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
@@ -201,27 +265,27 @@ public class UniversityDAO implements UniversityDAO_Interface{
         try {
             String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String queryString = "SELECT * FROM app.university WHERE UNIVERSITY_NAME = ?";
+            String queryString = "SELECT * FROM app.university WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityName); //email
             ResultSet rs = pstmt.executeQuery();                                                        
             //set student to the values in rs
             rs.next();
-            student.setUniversityName(rs.getString("university_name")); //university
-            student.setEmail(rs.getString("email")); //email        
-            student.setVideoURL(rs.getString("video_urls")); //video
-            student.setImageURL(rs.getString("images")); //images
-            student.setMajors(rs.getString("major")); //major
-            student.setState(rs.getString("state")); //state 
-            student.setCity(rs.getString("city")); //city
-            student.setCost(rs.getDouble("cost")); //cost
-            student.setEssay(rs.getString("essay")); //essay
+            university.setUniversityName(rs.getString("university_name")); //university
+            university.setEmail(rs.getString("email")); //email        
+            university.setVideoURL(rs.getString("video_urls")); //video
+            university.setImageURL(rs.getString("images")); //images
+            university.setMajors(rs.getString("major")); //major
+            university.setState(rs.getString("state")); //state 
+            university.setCity(rs.getString("city")); //city
+            university.setCost(rs.getDouble("cost")); //cost
+            university.setEssay(rs.getString("essay")); //essay
             
             DBConn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }       
-        return student;
+        return university;
     }
 
     @Override
@@ -249,4 +313,8 @@ public class UniversityDAO implements UniversityDAO_Interface{
         return rowCount;  
     }
     
+    //wraps a string in % signs for database access
+    private String percentWrap(String word){       
+        return "%" + word + "%";
+    }
 }
