@@ -148,7 +148,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("caferg2@ilstu.edu", "/Buckdog00885");
+                return new PasswordAuthentication("", "");
             }
         });
 
