@@ -4,13 +4,33 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
         <title>JSF 2.0 101</title>
     </h:head>
     <h:body>
-        <h2>LinkedU Signup Student</h2><br/>
+         <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        
         <h:graphicImage value="http://linkeduniversity.com/wp-content/uploads/2015/09/linkedu.png" width="200" height="180"/>
-
+        <div class ="form" style = "margin-left: 30px;">
         <h:form>
+             <h2>LinkedU Signup Student</h2><br/>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{studentController.theModel.email}">
             </h:inputText>
@@ -51,7 +71,7 @@
 <!--            <h:commandButton id="submitID" value="Submit" action="response.xhtml"/>-->
             <h:commandButton id="submitID" value="Submit" action="#{studentController.createProfile()}"/>
         </h:form>
-
+        </div>
     </h:body>
 </html>
 

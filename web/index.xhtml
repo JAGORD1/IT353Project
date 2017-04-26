@@ -4,14 +4,71 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <h:outputStylesheet library="css" name="style.css"  />
+        <meta charset="utf-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <title>LinkedU</title>
+        
+    <link rel="stylesheet" href="css/style.css"></link>
+        <!--<h:outputStylesheet library="css" name="style.css"  />-->
+        <div class="info">
+       
+        </div>
     </h:head>
-    <h:body><center>
-        <h2>Welcome to LinkedU!</h2>
+    <h:body>
+        <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        <h:form>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="./index.xhtml">Sign In</a></li>
+                    <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+                    <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+                    <li><a href="./searchUniversity.xhtml">Search University</a></li>
+                    <li><a href="./searchStudent.xhtml">Search Student</a></li>
+                    <li> 
+                       <!-- <h:commandLink value="Logout" action="#{loginBean.logout}"   rendered="#   {loginBean.loggedIn}">
+                        </h:commandLink> -->    
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</h:form>
+       
+        <div class="form"><center>
+                <div class ="info">
+        <h1>Welcome to LinkedU!</h1>
+                </div>
       <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
       <h3>Login as a Student</h3>
-      <h:form>
+      <h:form class="login-form">
           <h:panelGrid columns="2">
           Email: <h:inputText id ="stuEmail" value ="#{studentController.theModel.email}"></h:inputText>
           Password: <h:inputSecret id ="password" value ="#{studentController.theModel.password}"></h:inputSecret>
@@ -32,5 +89,7 @@
       </h:form>
       <h:link value ="Sign Up University" outcome="./signUpUniversity.xhtml"></h:link>
         </center>
+        </div>
     </h:body>
+
 </html>
