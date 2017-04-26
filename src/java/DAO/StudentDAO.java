@@ -137,9 +137,9 @@ public class StudentDAO implements StudentDAO_Interface{
      * @return ArrayList of student records that match the search information given.
      */
     @Override
-    public ArrayList<StudentBean> findStudents(StudentBean searchStudent) {
+    public ArrayList<StudentBean> findStudents(StudentBean searchStudent) { //first name, last name, act, sat, psat, major, university
         ArrayList studentBeanCollection = new ArrayList();
-        /*
+        
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
@@ -148,38 +148,81 @@ public class StudentDAO implements StudentDAO_Interface{
         }
 
         try {
-            String myDB = "jdbc:derby://localhost:1527/LinkedU";// connection string
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
             
-            String queryString = "SELECT * FROM itkstu.student WHERE userid = ?";
+            //get search records
+            String queryString = "SELECT * FROM app.student WHERE email LIKE ?, first_name LIKE ?, last_name LIKE ?, "
+                    + "act_score >= ?, sat_score >= ?, psat_nmsqt >= ?, universities LIKE ?, majors LIKE ?, highschool LIKE ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
-            pstmt.setString(1, userID);
             
-            ResultSet rs = pstmt.executeQuery();
+            if (searchStudent.getEmail().isEmpty()) { //email
+                pstmt.setString(1, "%");
+            }else pstmt.setString(1, percentWrap(searchStudent.getEmail()));
             
-            String firstName, lastName, email, securityQuestion, securityAnswer;
-            StudentBean studentBean;
-
+            if (searchStudent.getFirstName().isEmpty()) { //first_name
+                pstmt.setString(2, "%");
+            }else pstmt.setString(2, percentWrap(searchStudent.getFirstName()));
+            
+            if (searchStudent.getLastName().isEmpty()) { //last_name
+                pstmt.setString(3, "%");
+            }else pstmt.setString(3, percentWrap(searchStudent.getLastName()));
+            
+            if (searchStudent.getACTScore() == -1) { //act_score
+                pstmt.setInt(4, 0);
+            }else pstmt.setInt(4, searchStudent.getACTScore());
+            
+            if (searchStudent.getSATScore() == -1) { //sat_score
+                pstmt.setInt(5, 0);
+            }else pstmt.setInt(5, searchStudent.getSATScore());
+            
+            if (searchStudent.getPSATScore() == -1) { //psat_nmsqt
+                pstmt.setInt(6, 0);
+            }else pstmt.setInt(6, searchStudent.getPSATScore());
+            
+            if (searchStudent.getUniversities().isEmpty()) { //universities
+                pstmt.setString(7, "%");
+            }else pstmt.setString(7, percentWrap(searchStudent.getUniversities()));
+            
+            if (searchStudent.getMajors().isEmpty()) { //majors
+                pstmt.setString(8, "%");
+            }else pstmt.setString(8, percentWrap(searchStudent.getMajors()));
+            
+            if (searchStudent.getHighSchool().isEmpty()) { //highschool
+                pstmt.setString(9, "%");
+            }else pstmt.setString(9, percentWrap(searchStudent.getHighSchool()));
+                      
+            ResultSet rs = pstmt.executeQuery(); //sql look up
+            
+            //for each record received
             while (rs.next()) {
-                // 1. if a float (say PRICE) is to be retrieved, use rs.getFloat("PRICE");
-                // 2. Instead of using column firstName, can alternatively use: rs.getString(1); // not 0
-                firstName = rs.getString("first_Name");
-                lastName = rs.getString("last_Name");
-                email = rs.getString("email");
-                securityQuestion = rs.getString("security_Question");
-                securityAnswer = rs.getString("security_Answer");               
+                StudentBean student = new StudentBean();
 
-                // make a ProfileBean object out of the values
-                studentBean = new studentBean(firstName, lastName, userID, "", "", email, securityQuestion, securityAnswer);
-                // add the newly created object to the collection
-                studentBeanCollection.add(studentBean);
+                student.setFirstName(rs.getString("first_name")); //first name
+                student.setLastName(rs.getString("last_name")); //last name        
+                student.setACTScore(rs.getInt("act_score")); //aSct
+                student.setSATScore(rs.getInt("sat_score")); //sat
+                student.setPSATScore(rs.getInt("psat_nmsqt")); //psat
+                student.setEssay(rs.getString("essay")); //essay 
+                student.setEmail(rs.getString("email")); //email
+                student.setUniversities(rs.getString("universities")); //universities
+                student.setMajors(rs.getString("majors")); //majors
+                student.setMixtapeURL(rs.getString("video")); //video
+                student.setHighSchool(rs.getString("highschool")); //highschool
+                student.setPhoneNumber(rs.getString("phone_number")); //phone number
+                student.setImageURL(rs.getString("images")); //images
+                student.setProvider(rs.getString("phone_carrier")); //phone provider
+                student.setPassword(""); //password to null
+
+                studentBeanCollection.add(student);
             }
+            
             rs.close();
             DBConn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        */
+        
         return studentBeanCollection;
     }
 
@@ -324,5 +367,10 @@ public class StudentDAO implements StudentDAO_Interface{
             System.err.println(e.getMessage());
         }        
         return rowCount;  
+    }
+    
+    //wraps a string in % signs for database access
+    private String percentWrap(String word){       
+        return "%" + word + "%";
     }
 }
