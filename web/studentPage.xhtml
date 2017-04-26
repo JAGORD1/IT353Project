@@ -26,11 +26,42 @@
   </div>
 </nav>
         <div class ="form" style = "margin-left: 30px;">
-        <h:graphicImage value="http://linkeduniversity.com/wp-content/uploads/2015/09/linkedu.png" width="200" height="180"/>
-        
-        <h2>Student profile</h2>
-        <h:link value ="Search University" outcome="./searchUniversity.xhtml"></h:link>
+         <h2>Student profile</h2>
+         <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
+         <h:form>
+        <h:panelGrid columns="2">
+            Email: <h:outputText id="email" value="#{studentController.theModel.email}">
+            </h:outputText>
+            First Name: <h:outputText id="firstName" value="#{studentController.theModel.firstName}">
+            </h:outputText>
+            Last Name: <h:outputText id="lastName" value="#{studentController.theModel.lastName}">
+            </h:outputText>
+            Phone Number: <h:outputText id="phoneNumber" value="#{studentController.theModel.phoneNumber}">
+            </h:outputText>
+            Provider: <h:outputText id="provider" value="#{studentController.theModel.provider}">
+            </h:outputText>
+            ACT Score: <h:outputText id="ACTScore" value="#{studentController.theModel.ACTScore}">
+            </h:outputText>
+            SAT Score: <h:outputText id="SATScore" value="#{studentController.theModel.SATScore}">
+            </h:outputText>
+            PSAT/NMSQT Score: <h:outputText id="PSATScore" value="#{studentController.theModel.PSATScore}">
+            </h:outputText>
+            High School: <h:outputText id="highSchool" value="#{studentController.theModel.highSchool}">
+            </h:outputText>
+            Essay: <h:outputText id="Essay" value="#{studentController.theModel.essay}">
+            </h:outputText>
+            Universities (Separated by commas): <h:outputText id="universities" value="#{studentController.theModel.universities}">
+            </h:outputText>
+            Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.theModel.majors}">
+            </h:outputText>
+            Mixtape URL: <h:outputText id="mixtapeURL" value="#{studentController.theModel.mixtapeURL}">
+            </h:outputText>
+            Image URL: <h:outputText id="imageURL" value="#{studentController.theModel.imageURL}">
+            </h:outputText>
+             Subscribe to Mailing List? <h:outputText value = "#{studentController.theModel.mailList}" id = "subscribe" />
         <h:link value ="Update Profile" outcome ="./updateStudent.xhtml"></h:link>
+        </h:panelGrid>
+        </h:form>
    </div>
     </h:body>
         
