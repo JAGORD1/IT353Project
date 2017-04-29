@@ -35,10 +35,30 @@ public class StudentController {
 
     // This corresponds to the response to be sent back to the client
     private StudentBean theModel;
+    private StudentBean getModel;
     private String resetEmail;
     private boolean sendSMS;
     private boolean loggedIn = false;
     private String token;
+    private String getEmail;
+
+    public StudentBean getGetModel() {
+        return getModel;
+    }
+
+    public void setGetModel(StudentBean getModel) {
+        this.getModel = getModel;
+    }
+
+    public String getGetEmail() {
+        return getEmail;
+    }
+
+    public void setGetEmail(String getEmail) {
+        this.getEmail = getEmail;
+        StudentDAO data = new StudentDAO();
+        getModel = data.getStudentInfo(getEmail);
+    }
 
     public TextSenderService getService() {
         return service;
@@ -132,7 +152,7 @@ public class StudentController {
         String to = destination;
 
         // Sender's email ID needs to be mentioned
-        String from = "caferg2@ilstu.edu";
+        String from = "";
         
         // Assuming you are sending email from this host
         String host = "outlook.office365.com";
