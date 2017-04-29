@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
+        <title>JSF 2.0 101</title>
+    </h:head>
+    <h:body>
+         <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        <div class ="form" style = "margin-left: 30px;">
+         <h2>University profile</h2>
+         <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
+         <h:form>
+        <h:panelGrid columns="2">
+            Email: <h:outputText id="email" value="#{universityController.getModel.email}">
+            </h:outputText>
+            Name: <h:outputText id="firstName" value="#{universityController.getModel.universityName}">
+            </h:outputText>
+            State: <h:outputText id="lastName" value="#{universityController.getModel.state}">
+            </h:outputText>
+            City: <h:outputText id="phoneNumber" value="#{universityController.getModel.city}">
+            </h:outputText>
+            Cost: <h:outputText id="provider" value="#{universityController.getModel.cost}">
+            </h:outputText>
+            Essay: <h:outputText id="ACTScore" value="#{universityController.getModel.essay}">
+            </h:outputText>
+            Majors Offered: <h:outputText id="SATScore" value="#{universityController.getModel.majors}">
+            </h:outputText>
+            Video URL: <h:outputText id="mixtapeURL" value="#{universityController.getModel.videoURL}">
+            </h:outputText>
+            Image URL: <h:outputText id="imageURL" value="#{universityController.getModel.imageURL}">
+            </h:outputText>
+             Subscribed to Mailing List: <h:outputText value = "#{universityController.getModel.mailList}" id = "subscribe" />
+        </h:panelGrid>
+        </h:form>
+   </div>
+        <f:metadata>
+            <f:viewParam name="email" value="#{universityController.getEmail}" />
+        </f:metadata>
+    </h:body>
+        
+</html>
+
