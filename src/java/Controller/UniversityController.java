@@ -19,6 +19,26 @@ public class UniversityController {
 
     // This corresponds to the response to be sent back to the client
     private UniversityBean theModel;
+    private UniversityBean getModel;
+    private String getEmail;
+ 
+    public UniversityBean getGetModel() {
+        return getModel;
+    }
+
+    public void setGetModel(UniversityBean getModel) {
+        this.getModel = getModel;
+    }
+
+    public String getGetEmail() {
+        return getEmail;
+    }
+
+    public void setGetEmail(String getEmail) {
+        this.getEmail = getEmail;
+        UniversityDAO data = new UniversityDAO();
+        getModel = data.getUniversityInfo(getEmail);
+    }
 
     /**
      * Creates a new instance of ProfileController
