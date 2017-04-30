@@ -26,6 +26,8 @@ public class UniversityBean {
     private String videoURL;
     private String imageURL;
     private boolean mailList;
+    private boolean paid;
+    private String applyURL;
 
     public UniversityBean(String email, String password, String password2, 
             String universityName, String state, String city, double cost, 
@@ -44,7 +46,7 @@ public class UniversityBean {
         this.imageURL = imageURL;
         this.mailList = mailList;
     }
-    
+      
     public String getEmail() {
         return email;
     }
@@ -145,5 +147,34 @@ public class UniversityBean {
      */
     public void setMailList(boolean mailList) {
         this.mailList = mailList;
-    }   
+    }  
+
+    /**
+     * @return the paid
+     */
+    public boolean isPaid() {
+        return paid;
+    }
+
+    /**
+     * @param paid the paid to set
+     */
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    /**
+     * @return the applyURL
+     */
+    public String getApplyURL() {
+        return applyURL;
+    }
+
+    /**
+     * @param applyURL the applyURL to set
+     */
+    public void setApplyURL(String applyURL) {
+        this.applyURL = applyURL;
+    }
+    
 }
