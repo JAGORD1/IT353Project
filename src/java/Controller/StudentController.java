@@ -6,16 +6,33 @@ package controller;
 
 import DAO.StudentDAO;
 import DAO.TokensDAO;
+import DAO.UniversityDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
+import Model.UniversityBean;
 import edu.ilstu.it.TextSenderService;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
+import java.util.Scanner;
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.validator.ValidatorException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Part;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -41,6 +58,7 @@ public class StudentController {
     private boolean loggedIn = false;
     private String token;
     private String getEmail;
+    private UniversityBean university;
 
     public StudentBean getGetModel() {
         return getModel;
@@ -269,5 +287,79 @@ public class StudentController {
             return "Password Changed";
         }
         else return "Passwords Do Not Match";
+    }
+    
+    //search*
+    public ArrayList<StudentBean> searchStudent(StudentBean searchInfo){
+        StudentDAO student = new StudentDAO();
+        return student.searchStudent(searchInfo);
+    }
+    
+    public void checkStudent(javax.faces.event.AjaxBehaviorEvent event){
+        StudentDAO student = new StudentDAO();               
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(String.valueOf(student.searchStudent(theModel).size())));             
+    }
+    
+   public void addImage() throws FileNotFoundException, IOException, MessagingException{ 
+        Part image = theModel.getImage();
+        if (image == null) return;
+        //System.out.println(image.length());
+        StudentDAO images = new StudentDAO();               
+        byte data[] = new byte[(int) image.getSize()];
+        FileOutputStream out = new FileOutputStream("a");
+        out.write(data);
+        out.close();
+    }
+   
+    /*public void upload() {
+     try {
+       theModel.setFileContent(new Scanner(file.getInputStream()));
+           .useDelimiter("\\A").next();
+     } catch (IOException e) {
+       // Error handling
+     }
+    }*/
+   
+    public String getImage(String name) throws FileNotFoundException, IOException{
+         StudentDAO images = new StudentDAO();               
+         
+         Path path = Paths.get("a");
+         //byte data[] = Files.readAllBytes(path);
+         
+         
+         return "a";
+     }
+    
+    public void validateFile(FacesContext ctx, UIComponent comp, Object value) throws MessagingException {
+        List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+        Part file = (Part)value;
+        if (file.getSize() > 2097152) { //2 MB
+          msgs.add(new FacesMessage("file too big"));
+        }
+        if ("text/plain".equals(file.getContentType())) {
+          msgs.add(new FacesMessage("not a picture"));
+        }
+        if (!msgs.isEmpty()) {
+          throw new ValidatorException(msgs);
+        }
+    }
+    
+    private void setUniversity(){
+        UniversityDAO uni = new UniversityDAO();
+        ArrayList<UniversityBean> list = uni.searchUniversityByPaid(true);
+        Random rand = new Random();
+        int n = rand.nextInt(list.size());//gets a random number
+        university = list.get(n);
+    }
+ 
+    
+    public String universityAd(){
+        setUniversity();
+        return university.getVideoURL();       
+    }
+    
+    public String universityLink(){       
+        return "http://gfish2.it.ilstu.edu/mjdifig_Spring2017_LinkedU/faces/universityPage.xhtml";       
     }
 }
