@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
 import edu.ilstu.it.TextSenderService;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -41,6 +42,8 @@ public class StudentController {
     private boolean loggedIn = false;
     private String token;
     private String getEmail;
+    private ArrayList<StudentBean> students;
+    private StudentBean criteria;
 
     public StudentBean getGetModel() {
         return getModel;
@@ -105,6 +108,7 @@ public class StudentController {
      */
     public StudentController() {
         theModel = new StudentBean();
+        criteria = new StudentBean();
     }
 
     public StudentBean getTheModel() {
@@ -269,5 +273,39 @@ public class StudentController {
             return "Password Changed";
         }
         else return "Passwords Do Not Match";
+    }
+    
+    public String searchStudents(){
+        StudentDAO stuDao = new StudentDAO();
+        students = stuDao.searchStudent(getCriteria());
+        return "searchStuResults.xhtml";
+    }
+
+    /**
+     * @return the students
+     */
+    public ArrayList<StudentBean> getStudents() {
+        return students;
+    }
+
+    /**
+     * @param students the students to set
+     */
+    public void setStudents(ArrayList<StudentBean> students) {
+        this.students = students;
+    }
+
+    /**
+     * @return the criteria
+     */
+    public StudentBean getCriteria() {
+        return criteria;
+    }
+
+    /**
+     * @param criteria the criteria to set
+     */
+    public void setCriteria(StudentBean criteria) {
+        this.criteria = criteria;
     }
 }

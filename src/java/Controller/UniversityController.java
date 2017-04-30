@@ -4,10 +4,13 @@
  */
 package controller;
 
+import DAO.StudentDAO;
 import DAO.UniversityDAO;
+import Model.StudentBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Model.UniversityBean;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +24,8 @@ public class UniversityController {
     private UniversityBean theModel;
     private UniversityBean getModel;
     private String getEmail;
+    private ArrayList<UniversityBean> universities;
+    private UniversityBean criteria;
  
     public UniversityBean getGetModel() {
         return getModel;
@@ -45,6 +50,7 @@ public class UniversityController {
      */
     public UniversityController() {
         theModel = new UniversityBean();
+        criteria = new UniversityBean();
     }
 
     public UniversityBean getTheModel() {
@@ -74,5 +80,39 @@ public class UniversityController {
         else{
             return "index.xhtml";
         }
+    }
+    
+    public String searchUniversity(){
+        UniversityDAO uniDao = new UniversityDAO();
+        setUniversities(uniDao.searchUniversity(getCriteria()));
+        return "searchUniResults.xhtml";
+    }
+
+    /**
+     * @return the universities
+     */
+    public ArrayList<UniversityBean> getUniversities() {
+        return universities;
+    }
+
+    /**
+     * @param universities the universities to set
+     */
+    public void setUniversities(ArrayList<UniversityBean> universities) {
+        this.universities = universities;
+    }
+
+    /**
+     * @return the criteria
+     */
+    public UniversityBean getCriteria() {
+        return criteria;
+    }
+
+    /**
+     * @param criteria the criteria to set
+     */
+    public void setCriteria(UniversityBean criteria) {
+        this.criteria = criteria;
     }
 }
