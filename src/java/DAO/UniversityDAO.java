@@ -33,13 +33,13 @@ public class UniversityDAO implements UniversityDAO_Interface{
             pstmt.setString(3, salt); //password
             pstmt.setString(4, universityDAO.getVideoURL()); //video
             pstmt.setString(5, universityDAO.getImageURL()); //images
-            pstmt.setString(6, universityDAO.getMajors()); //majors
-            pstmt.setString(7, universityDAO.getState()); //state
-            pstmt.setString(8, universityDAO.getCity()); //city
-            pstmt.setDouble(9, universityDAO.getCost()); //cost
-            pstmt.setString(10, universityDAO.getEssay()); //essay
-            pstmt.setBoolean(11, universityDAO.isPaid()); //paid
-            pstmt.setString(12, universityDAO.getApplyURL()); //applyURL
+            pstmt.setString(6, universityDAO.getApplyURL()); //applyURL
+            pstmt.setString(7, universityDAO.getMajors()); //majors
+            pstmt.setString(8, universityDAO.getState()); //state
+            pstmt.setString(9, universityDAO.getCity()); //city
+            pstmt.setDouble(10, universityDAO.getCost()); //cost
+            pstmt.setString(11, universityDAO.getEssay()); //essay
+            pstmt.setBoolean(12, universityDAO.isPaid()); //paid           
             pstmt.setBoolean(13, universityDAO.getMailList()); //mail_list
             
             rowCount = pstmt.executeUpdate(); 
