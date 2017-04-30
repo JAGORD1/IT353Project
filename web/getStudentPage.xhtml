@@ -55,10 +55,8 @@
             </h:outputText>
             Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.getModel.majors}">
             </h:outputText>
-            Mixtape URL: <h:outputText id="mixtapeURL" value="#{studentController.getModel.mixtapeURL}">
-            </h:outputText>
-            Image URL: <h:outputText id="imageURL" value="#{studentController.getModel.imageURL}">
-            </h:outputText>
+            <h:outputText value="Mixtape : "/> <iframe width="560" height="315" src="#{studentController.theModel.mixtapeURL}" frameborder="0" allowfullscreen="true"></iframe>
+            <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.theModel.imageURL}"/>
              Subscribed to Mailing List: <h:outputText value = "#{studentController.getModel.mailList}" id = "subscribe" />
         </h:panelGrid>
         </h:form>

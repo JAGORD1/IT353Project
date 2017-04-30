@@ -45,10 +45,8 @@
             </h:outputText>
             Majors Offered: <h:outputText id="SATScore" value="#{universityController.getModel.majors}">
             </h:outputText>
-            Video URL: <h:outputText id="mixtapeURL" value="#{universityController.getModel.videoURL}">
-            </h:outputText>
-            Image URL: <h:outputText id="imageURL" value="#{universityController.getModel.imageURL}">
-            </h:outputText>
+            <h:outputText value="Video : "/> <iframe width="560" height="315" src="#{universityController.theModel.videoURL}" frameborder="0" allowfullscreen="true"></iframe>
+            <h:outputText value="Image : "/> <h:graphicImage value="#{universityController.theModel.imageURL}"/>
              Subscribed to Mailing List: <h:outputText value = "#{universityController.getModel.mailList}" id = "subscribe" />
         </h:panelGrid>
         </h:form>
