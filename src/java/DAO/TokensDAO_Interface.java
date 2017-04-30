@@ -7,7 +7,9 @@ package DAO;
 
 /**
  *
- * @author IT353S704
+ * @author Mark DiFiglio
+ * 4/19/2017
+ * 
  */
 public interface TokensDAO_Interface {
     public String submitToken(String id);

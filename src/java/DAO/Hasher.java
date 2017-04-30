@@ -7,6 +7,8 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author Mark DiFiglio
  * 4/17/2017
+ * 
+ * Hashes all passwords.
  */
 public class Hasher {
     

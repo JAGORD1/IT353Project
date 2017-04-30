@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,22 +9,24 @@ import java.util.Random;
 
 /**
  *
- * @author IT353S704
+ * @author Mark DiFiglio
+ * 4/19/2017
+ * 
+ * Controls access to the tokens table.
  */
 public class TokensDAO implements TokensDAO_Interface{
+   
+    /**
+     * 
+     * @param id
+     * @return A String token to link an account. 
+     */
     @Override
-    public String submitToken(String id){
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }     
+    public String submitToken(String id){         
         int rowCount = 0;
         long token = 0;
         try {
-            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
-            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");            
+            Connection DBConn = DatabaseHelper.dataBaseConnection();         
             
             //check if exist
             String queryString2 = "SELECT id FROM app.tokens WHERE id = ?";
@@ -51,7 +47,7 @@ public class TokensDAO implements TokensDAO_Interface{
                 long millis = System.currentTimeMillis();
                 token = millis + n; //hash this
 
-                String hash = Hasher.generateHash(String.valueOf(token)); //hash the password            
+                String hash = Hasher.generateHash(String.valueOf(token)); //hash the token            
 
                 String queryString = "INSERT INTO app.tokens VALUES (?,?,?)";
                 PreparedStatement pstmt = DBConn.prepareStatement(queryString);
@@ -72,18 +68,16 @@ public class TokensDAO implements TokensDAO_Interface{
         return String.valueOf(token);
     }
     
+    /**
+     * 
+     * @param token
+     * @return String of the users email if a valid token otherwise "";
+     */
     @Override
     public String verifyToken(String token){
         String id = "";
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
-        try {
-            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/mjdifig_spring2017_LinkedU";// connection string
-            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            Connection DBConn = DatabaseHelper.dataBaseConnection();
             
             String salt = Hasher.generateHash(token); //hash the token  
             
@@ -95,8 +89,14 @@ public class TokensDAO implements TokensDAO_Interface{
 
             if (rs.next()) {
                 //check timestamp
-                //if (rs.getTimestamp("timestamp") );
-                id = rs.getString("id"); //get id               
+                if (Long.parseLong(token) + 300000 > System.currentTimeMillis()){ //300000 is 5 minutes + up to 10 random secs
+                    id = rs.getString("id"); //get id 
+                } else {//timed out delete token from table
+                    queryString = "DELETE FROM app.tokens WHERE token = ?"; //sql statement
+                    pstmt = DBConn.prepareStatement(queryString);
+                    pstmt.setString(1, salt);
+                    pstmt.executeUpdate(); //sql call
+                }              
             }           
             DBConn.close();
         } catch (SQLException e) {
