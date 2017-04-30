@@ -81,7 +81,7 @@
       <h3>Login as University</h3>
       <h:form>
           <h:panelGrid columns="2">
-          Email: <h:inputText id ="uniName" value ="#{universityController.theModel.universityName}"></h:inputText>
+          Email: <h:inputText id ="uniName" value ="#{universityController.theModel.email}"></h:inputText>
           Password: <h:inputSecret id ="uniPassword" value ="#{universityController.theModel.password}"></h:inputSecret>
           </h:panelGrid>
           <h:commandButton id ="loginUni" value ="Login" action ="#{universityController.login()}"></h:commandButton>
