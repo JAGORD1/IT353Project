@@ -1,12 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Search Students
+        <h:form>
+            <h:panelGrid columns="2">
+            Email: <h:inputText id="email" value="#{studentController.criteria.email}">
+            </h:inputText>
+            First Name: <h:inputText id="firstName" value="#{studentController.criteria.firstName}">
+            </h:inputText>
+            Last Name: <h:inputText id="lastName" value="#{studentController.criteria.lastName}">
+            </h:inputText>
+            ACT Score: <h:inputText id="ACTScore" value="#{studentController.criteria.ACTScore}">
+            </h:inputText>
+            SAT Score: <h:inputText id="SATScore" value="#{studentController.criteria.SATScore}">
+            </h:inputText>
+            PSAT/NMSQT Score: <h:inputText id="PSATScore" value="#{studentController.criteria.PSATScore}">
+            </h:inputText>
+            High School: <h:inputText id="highSchool" value="#{studentController.criteria.highSchool}">
+            </h:inputText>
+            Universities (Separated by commas): <h:inputText id="universities" value="#{studentController.criteria.universities}">
+            </h:inputText>
+            Majors (Separated by commas): <h:inputText id="majors" value="#{studentController.criteria.majors}">
+            </h:inputText>
+            
+            
+            </h:panelGrid>
+
+
+<!--            <h:commandButton id="submitID" value="Submit" action="response.xhtml"/>-->
+<h:commandButton id="submitID" value="Submit" action="#{studentController.searchStudents()}"/>
+        </h:form>
     </h:body>
 </html>
 
