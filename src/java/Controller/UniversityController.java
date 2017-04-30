@@ -67,8 +67,8 @@ public class UniversityController {
     
     public String login(){
         UniversityDAO uniDao = new UniversityDAO();
-        if(uniDao.universityLogin(theModel.getUniversityName(), theModel.getPassword())){
-            uniDao.getUniversityInfo(theModel.getUniversityName());
+        if(uniDao.universityLogin(theModel.getEmail(), theModel.getPassword())){
+            uniDao.getUniversityInfo(theModel.getEmail());
             return "universityPage.xhtml";
         }
         else{
