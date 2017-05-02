@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:dataTable id="empTableID" value="#{universityController.universities}" var="aRow"
+                     border="1" cellpadding="2" cellspacing="0">
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="University Name"/>
+                </f:facet>
+                <a href="getUniversityPage.xhtml?email=#{aRow.email}">
+                    <h:outputText value ="#{aRow.universityName}"/></a>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="Email"/>
+                </f:facet>
+                <h:outputText value ="#{aRow.email}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="Majors Offered"/>
+                </f:facet>
+                <h:outputText value ="#{aRow.majors}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="State"/>
+                </f:facet>
+                <h:outputText value ="#{aRow.state}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="City"/>
+                </f:facet>
+                <h:outputText value ="#{aRow.city}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">
+                    <h:outputText value="Cost"/>
+                </f:facet>
+                <h:outputText value ="#{aRow.cost}"/>
+            </h:column>
+            
+            
+        </h:dataTable>
+    </h:body>
+</html>
+

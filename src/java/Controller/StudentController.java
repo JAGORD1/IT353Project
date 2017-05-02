@@ -45,6 +45,7 @@ public class StudentController {
     private String getEmail;
     private ArrayList<StudentBean> students;
     private StudentBean criteria;
+    private String scheduleMessage;
 
     public StudentBean getGetModel() {
         return getModel;
@@ -157,7 +158,7 @@ public class StudentController {
         String to = destination;
 
         // Sender's email ID needs to be mentioned
-        String from = "";
+        String from = "ejwunde@ilstu.edu";
         
         // Assuming you are sending email from this host
         String host = "outlook.office365.com";
@@ -173,7 +174,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("", "");
+                return new PasswordAuthentication("ejwunde@ilstu.edu", "Cr@ck3rj@ck5");
             }
         });
 
@@ -243,6 +244,15 @@ public class StudentController {
         } else resetEmail = theModel.getEmail();
         
         return navi;
+    }
+    
+    public String scheduleAppt(){
+        String appt = "";
+        appt = scheduleMessage;
+        
+        sendEmail(theModel.getEmail(), appt);
+        
+        return "getUniversityPage.xhtml";
     }
     
     public String checkToken(ComponentSystemEvent event) {
@@ -316,5 +326,31 @@ public class StudentController {
         return port.getCarriers();
     }
     
-  
+    /**
+     * @return the scheduleMessage
+     */
+    public String getScheduleMessage() {
+        return scheduleMessage;
+    }
+
+    /**
+     * @param scheduleMessage the scheduleMessage to set
+     */
+    public void setScheduleMessage(String scheduleMessage) {
+        this.scheduleMessage = scheduleMessage;
+    }
+    
+        public void requestInformation(){
+        String message = "A user has requested that you update or include more information on your profile.";
+    
+        sendEmail(getModel.getEmail(), message);
+    }
+    
+    public void reportPage(){
+        String message = "The following user\'s profile page has been flagged as being offensive."
+                + "Please review.\n User: " + theModel.getFirstName() + " " + theModel.getLastName();  
+        
+        sendEmail("ejwunde@ilstu.edu", message);
+    }
+
 }
