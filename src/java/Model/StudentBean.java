@@ -230,8 +230,8 @@ public class StudentBean {
      */
     public void setFileContent(byte[] fileContent) {
         this.fileContent = fileContent;
-     * @return the scheduleMessage
-     */
+ 
+    }
     public String getScheduleMessage() {
         return scheduleMessage;
     }
