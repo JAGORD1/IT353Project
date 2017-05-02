@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
+        <title>JSF 2.0 101</title>
+    </h:head>
+    <h:body>
+         <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        <div class ="form" style = "margin-left: 30px;">
+         <h2>Student profile</h2>
+         <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
+         <h:form>
+        <h:panelGrid columns="2">
+            Email: <h:outputText id="email" value="#{studentController.getModel.email}">
+            </h:outputText>
+            First Name: <h:outputText id="firstName" value="#{studentController.getModel.firstName}">
+            </h:outputText>
+            Last Name: <h:outputText id="lastName" value="#{studentController.getModel.lastName}">
+            </h:outputText>
+            Phone Number: <h:outputText id="phoneNumber" value="#{studentController.getModel.phoneNumber}">
+            </h:outputText>
+            Provider: <h:outputText id="provider" value="#{studentController.getModel.provider}">
+            </h:outputText>
+            ACT Score: <h:outputText id="ACTScore" value="#{studentController.getModel.ACTScore}">
+            </h:outputText>
+            SAT Score: <h:outputText id="SATScore" value="#{studentController.getModel.SATScore}">
+            </h:outputText>
+            PSAT/NMSQT Score: <h:outputText id="PSATScore" value="#{studentController.getModel.PSATScore}">
+            </h:outputText>
+            High School: <h:outputText id="highSchool" value="#{studentController.getModel.highSchool}">
+            </h:outputText>
+            Essay: <h:outputText id="Essay" value="#{studentController.getModel.essay}">
+            </h:outputText>
+            Universities (Separated by commas): <h:outputText id="universities" value="#{studentController.getModel.universities}">
+            </h:outputText>
+            Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.getModel.majors}">
+            </h:outputText>
+            <h:outputText value="Mixtape : "/> <iframe width="560" height="315" src="#{studentController.theModel.mixtapeURL}" frameborder="0" allowfullscreen="true"></iframe>
+            <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.theModel.imageURL}"/>
+             Subscribed to Mailing List: <h:outputText value = "#{studentController.getModel.mailList}" id = "subscribe" />
+        </h:panelGrid>
+        </h:form>
+   </div>
+        <f:metadata>
+            <f:viewParam name="email" value="#{studentController.getEmail}" />
+        </f:metadata>
+    </h:body>
+        
+</html>
+

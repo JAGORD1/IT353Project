@@ -1,16 +1,10 @@
 package DAO;
 
 import Model.StudentBean;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
-import static java.sql.JDBCType.BLOB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.sql.Types.BLOB;
 import java.util.ArrayList;
 
 /**
@@ -250,7 +244,6 @@ public class StudentDAO implements StudentDAO_Interface{
     /**
      * 
      * @param studentDAO
-     * @param originalEmail
      * @return Int of rows updated. 
      */
     @Override
@@ -260,8 +253,8 @@ public class StudentDAO implements StudentDAO_Interface{
             Connection DBConn = DatabaseHelper.dataBaseConnection();
             String queryString = "UPDATE app.student SET email = ?, first_name = ?, last_name = ?, "
                     + "act_score = ?, sat_score = ?, psat_nmsqt = ?, essay = ?, universities = ?, majors = ?, "
-                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ?, "
-                    + "mail_list = ? WHERE email = ?";
+                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ? "
+                    + "AND mail_list = ? WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, studentDAO.getEmail()); //email
             pstmt.setString(2, studentDAO.getFirstName()); //first_name
@@ -351,39 +344,5 @@ public class StudentDAO implements StudentDAO_Interface{
             System.err.println(e.getMessage());
         }        
         return rowCount;  
-    }
-    
-    public int addImage(String id, Blob img){
-        int rowCount = 0;           
-        try {           
-            Connection DBConn = DatabaseHelper.dataBaseConnection();
-            String queryString = "INSERT INTO app.images VALUES (?,utl_raw.cast_to_raw(?))"; //sql statement          
-            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
-            pstmt.setString(1, id); //password
-            pstmt.setBlob(2, img); //email            
-            rowCount = pstmt.executeUpdate(); //database call
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }        
-        return rowCount; 
-    }
-    
-    public Blob getImage(String id){ 
-        Blob img = null;
-        try {           
-            Connection DBConn = DatabaseHelper.dataBaseConnection();
-            String queryString = "SELECT * FROM app.images WHERE id = ?"; //sql statement          
-            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
-            pstmt.setString(1, id); //id         
-            ResultSet rs = pstmt.executeQuery(); //database call
-            if (rs.next()){
-                img = rs.getBlob("image");
-            }
-            DBConn.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }        
-        return img; 
     }
 }
