@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     
-    <f:event listener="#{studentController.isLoggedIn}" type="preRenderView" />
+    <f:event listener="#{studentController.loggedIn()}" type="preRenderView" />
     
     <h:head>
         <title>Facelet Title</title>
@@ -13,11 +13,7 @@
          <h:form>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{studentController.theModel.email}">
-            </h:inputText>
-            Password: <h:inputSecret id="password" value="#{studentController.theModel.password}">
-            </h:inputSecret>
-            Confirm Password: <h:inputSecret id="confirmPassword" value="#{studentController.theModel.password2}">
-            </h:inputSecret>
+            </h:inputText>            
             First Name: <h:inputText id="firstName" value="#{studentController.theModel.firstName}">
             </h:inputText>
             Last Name: <h:inputText id="lastName" value="#{studentController.theModel.lastName}">
