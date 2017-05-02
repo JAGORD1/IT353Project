@@ -121,6 +121,9 @@ setInterval(function() {
             Majors Offered: <h:outputText id="SATScore" value="#{universityController.theModel.majors}">
             </h:outputText>
             <h:outputText value="Video : "/> <iframe width="560" height="315" src="#{universityController.theModel.videoURL}" frameborder="0" allowfullscreen="true"></iframe>
+            <h:outputText value="Image : "/> <h:graphicImage value="#{universityController.theModel.imageURL}"/>
+             Subscribed to Mailing List: <h:outputText value = "#{universityController.theModel.mailList}" id = "subscribe" />
+        <h:link value ="Update Profile" outcome ="./updateUniversity.xhtml"></h:link>
             <h:outputText value="Image : "/> <h:graphicImage style="width: 800px;" value="#{universityController.theModel.imageURL}"/>
              Subscribed to Mailing List: <h:outputText value = "#{universityController.theModel.mailList}" id = "subscribe" />
         <h:link value ="Update Profile" outcome ="./updateStudent.xhtml"></h:link>

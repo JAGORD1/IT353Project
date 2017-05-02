@@ -93,6 +93,12 @@
         <div class ="form" style = "margin-left: 30px;">
          <h2>University profile</h2>
          <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
+         <br></br>
+        <iframe width="560" height="315" src="#{universityController.getModel.videoURL}" frameborder="0" allowfullscreen="true"></iframe>
+        <br></br>
+        <h:graphicImage value="#{universityController.getModel.imageURL}"/>
+        <br></br>  
+            
          <h:form>
         <h:panelGrid columns="2">
             Email: <h:outputText id="email" value="#{universityController.getModel.email}">
@@ -109,6 +115,7 @@
             </h:outputText>
             Majors Offered: <h:outputText id="SATScore" value="#{universityController.getModel.majors}">
             </h:outputText>
+            </h:panelGrid>
             Application: <h:outputText id="Application" value="#{universityController.getModel.applyURL}">
             </h:outputText>
             <h:outputText value="Video : "/> <iframe width="560" height="315" src="#{universityController.getModel.videoURL}" frameborder="0" allowfullscreen="true"></iframe>

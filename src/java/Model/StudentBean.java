@@ -4,6 +4,11 @@
  */
 package Model;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import javax.mail.Part;
+
 /**
  *
  * @author admin
@@ -30,6 +35,8 @@ public class StudentBean {
     private String majors;
     private String mixtapeURL;
     private String imageURL;
+    private Part image;   
+    private byte[] fileContent;
     private boolean mailList;
     private String scheduleMessage;
 
@@ -198,6 +205,31 @@ public class StudentBean {
     }
 
     /**
+     * @return the image
+     */
+    public Part getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(Part image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the fileContent
+     */
+    public byte[] getFileContent() {
+        return fileContent;
+    }
+
+    /**
+     * @param fileContent the fileContent to set
+     */
+    public void setFileContent(byte[] fileContent) {
+        this.fileContent = fileContent;
      * @return the scheduleMessage
      */
     public String getScheduleMessage() {

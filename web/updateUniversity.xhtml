@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     
-    <f:event listener="#{universityController.isLoggedIn}" type="preRenderView" />
+    <f:event listener="#{universityController.loggedIn()}" type="preRenderView" />
     
     <h:head>
         <title>Facelet Title</title>
@@ -16,11 +16,7 @@
         <h:form>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{universityController.theModel.email}">
-            </h:inputText>
-            Password: <h:inputSecret id="password" value="#{universityController.theModel.password}">
-            </h:inputSecret>
-            Confirm Password: <h:inputSecret id="confirmPassword" value="#{universityController.theModel.password2}">
-            </h:inputSecret>
+            </h:inputText>           
             University Name: <h:inputText id="universityName" value="#{universityController.theModel.universityName}">
             </h:inputText>
             State: <h:inputText id="state" value="#{universityController.theModel.state}">
@@ -37,6 +33,7 @@
             </h:inputText>
             Image URL: <h:inputText id="imageURL" value="#{universityController.theModel.imageURL}">
             </h:inputText>
+             Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{universityController.theModel.mailList}" id = "subscribe" />
             Application URL: <h:inputText id="applyURL" value="#{universityController.theModel.applyURL}">
                 </h:inputText>
              Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{studentController.theModel.mailList}" id = "subscribe" />
