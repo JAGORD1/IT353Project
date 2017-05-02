@@ -1,12 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+          <h:form>
+            <h:panelGrid columns="2">
+            University Name: <h:inputText id="name" value="#{universityController.criteria.universityName}">
+            </h:inputText>
+            Email: <h:inputText id="email" value="#{universityController.criteria.email}">
+            </h:inputText>
+            Majors: <h:inputText id="mojors" value="#{universityController.criteria.majors}">
+            </h:inputText>
+            State: <h:inputText id="state" value="#{universityController.criteria.state}">
+            </h:inputText>
+            City: <h:inputText id="city" value="#{universityController.criteria.city}">
+            </h:inputText>
+            Cost: <h:inputText id="cost" value="#{universityController.criteria.cost}">
+            </h:inputText>
+            
+            
+            
+            </h:panelGrid>
+
+
+<!--            <h:commandButton id="submitID" value="Submit" action="response.xhtml"/>-->
+<h:commandButton id="submitID" value="Submit" action="#{universityController.searchUniversity()}"/>
+        </h:form>
     </h:body>
 </html>
 

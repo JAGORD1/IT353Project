@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>      <meta charset="utf-8"></meta>
@@ -31,7 +31,7 @@
         <div class ="form" style = "margin-left: 30px;">
             
         <h:form>
-            <h2>LinkedU Signup University</h2><br/>
+            <h2>LinkedU Sign Up University</h2><br/>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{universityController.theModel.email}">
             </h:inputText>
@@ -53,6 +53,8 @@
             </h:inputText>
             Video URL: <h:inputText id="videoURL" value="#{universityController.theModel.videoURL}">
             </h:inputText>
+            Application URL: <h:inputText id="applyURL" value="#{universityController.theModel.applyURL}">
+            </h:inputText>
             Image URL: <h:inputText id="imageURL" value="#{universityController.theModel.imageURL}">
             </h:inputText>
              Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{studentController.theModel.mailList}" id = "subscribe" />
@@ -64,5 +66,5 @@
         </h:form>
         </div>
     </h:body>
-</html>
+</xhtml>
 

@@ -31,6 +31,7 @@ public class StudentBean {
     private String mixtapeURL;
     private String imageURL;
     private boolean mailList;
+    private String scheduleMessage;
 
     public StudentBean(String email, String password, String password2, String firstName, 
             String lastName, String phoneNumber, String provider, int ACTScore, int SATScore, 
@@ -194,6 +195,20 @@ public class StudentBean {
      */
     public void setMailList(boolean mailList) {
         this.mailList = mailList;
+    }
+
+    /**
+     * @return the scheduleMessage
+     */
+    public String getScheduleMessage() {
+        return scheduleMessage;
+    }
+
+    /**
+     * @param scheduleMessage the scheduleMessage to set
+     */
+    public void setScheduleMessage(String scheduleMessage) {
+        this.scheduleMessage = scheduleMessage;
     }
     
 }
