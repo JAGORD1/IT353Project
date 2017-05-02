@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
 import edu.ilstu.it.TextSenderService;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -122,7 +123,7 @@ public class StudentController {
     public String createProfile() {
         StudentDAO stu = new StudentDAO();
         int a  = stu.createStudent(theModel);
-        if(a == 11){
+        if(a == 1){
             loggedIn = true;
             return "studentPage.xhtml";
         }
@@ -212,11 +213,10 @@ public class StudentController {
     public String login(){
         StudentDAO stu = new StudentDAO();
         if(stu.studentLogin(theModel.getEmail(), theModel.getPassword())){
-            theModel =stu.getStudentInfo(theModel.getEmail());
+            theModel = stu.getStudentInfo(theModel.getEmail());
             loggedIn = true;
             return "studentPage.xhtml";
-        }
-        else{
+        } else {
             return "index.xhtml";
         }
     }
@@ -225,7 +225,7 @@ public class StudentController {
     //------------Needs upload. signUpStudent.xhtml needs upload too along with updateStudent.xhtml-----------
     public String update(){
         StudentDAO stu = new StudentDAO();
-        if(stu.updateStudent(theModel, theModel.getEmail()) == 11){
+        if(stu.updateStudent(theModel, resetEmail) == 1){
             return "studentPage.xhtml";
         }
         else{
@@ -233,15 +233,14 @@ public class StudentController {
         }
     }
     
-    public String isLoggedIn(ComponentSystemEvent event) {
+    public String loggedIn() {
         String navi = null;
-
-        if (!loggedIn) {
-
+        
+        if (!loggedIn) {           
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("index?faces-redirect=true");
-        }
+        } else resetEmail = theModel.getEmail();
         
         return navi;
     }
@@ -308,4 +307,14 @@ public class StudentController {
     public void setCriteria(StudentBean criteria) {
         this.criteria = criteria;
     }
+
+    public List<String> getCarriers() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        edu.ilstu.it.TextSender port = service.getTextSenderPort();
+        List<String> a = port.getCarriers();
+        return port.getCarriers();
+    }
+    
+  
 }
