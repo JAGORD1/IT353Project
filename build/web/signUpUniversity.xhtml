@@ -1,16 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
+    <h:head>      <meta charset="utf-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
         <title>JSF 2.0 101</title>
     </h:head>
     <h:body>
-        <h2>LinkedU Signup University</h2><br/>
+         <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        
         <h:graphicImage value="http://linkeduniversity.com/wp-content/uploads/2015/09/linkedu.png" width="200" height="180"/>
-
+        <div class ="form" style = "margin-left: 30px;">
+            
         <h:form>
+            <h2>LinkedU Sign Up University</h2><br/>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{universityController.theModel.email}">
             </h:inputText>
@@ -32,16 +53,21 @@
             </h:inputText>
             Video URL: <h:inputText id="videoURL" value="#{universityController.theModel.videoURL}">
             </h:inputText>
+            Application URL: <h:inputText id="applyURL" value="#{universityController.theModel.applyURL}">
+            </h:inputText>
             Image URL: <h:inputText id="imageURL" value="#{universityController.theModel.imageURL}">
             </h:inputText>
-             Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{studentController.theModel.mailList}" id = "subscribe" />
+            Apply URL: <h:inputText id="applyURL" value="#{universityController.theModel.applyURL}">
+            </h:inputText>
+            Subscribe to Mailing List? <h:selectBooleanCheckbox value = "#{studentController.theModel.mailList}" id = "subscribe" />
+            
             </h:panelGrid>
 
 
 <!--            <h:commandButton id="submitID" value="Submit" action="response.xhtml"/>-->
             <h:commandButton id="submitID" value="Submit" action="#{universityController.createProfile()}"/>
         </h:form>
-
+        </div>
     </h:body>
-</html>
+</xhtml>
 

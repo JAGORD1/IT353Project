@@ -26,6 +26,12 @@
     </ul>
   </div>
 </nav>
+        
+        <iframe width="560" height="315" src="#{universityController.universityAd()}?autoplay=1" frameborder="0" allowfullscreen="true"></iframe>
+        <br></br>
+        
+        <h:outputLink value="#{universityController.universityLink()}">Visit University Page!</h:outputLink>
+        
         <div class ="form" style = "margin-left: 30px;">
               <div class="row profile">
 		<div class="col-md-3">
@@ -111,6 +117,11 @@
             Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.theModel.majors}">
             </h:outputText>
             <h:outputText value="Mixtape : "/> <iframe width="560" height="315" src="#{studentController.theModel.mixtapeURL}" frameborder="0" allowfullscreen="true"></iframe>
+
+            <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.theModel.imageURL}"/>                       
+            
+            Subscribed to Mailing List: <h:outputText value = "#{studentController.theModel.mailList}" id = "subscribe" />
+
             <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.theModel.imageURL}"/>
             
            
@@ -129,6 +140,7 @@
  
              
              <!---->
+
         <h:link value ="Update Profile" outcome ="./updateStudent.xhtml"></h:link>
         </h:panelGrid>
          </h:form> 

@@ -44,8 +44,9 @@
             </h:inputText>
             Phone Number: <h:inputText id="phoneNumber" value="#{studentController.theModel.phoneNumber}">
             </h:inputText>
-            Provider: <h:inputText id="provider" value="#{studentController.theModel.provider}">
-            </h:inputText>
+            Provider: <h:selectOneMenu id="provider" value="#{studentController.theModel.provider}">
+                <f:selectItems value="#{studentController.getCarriers()}" />
+            </h:selectOneMenu>           
             ACT Score: <h:inputText id="ACTScore" value="#{studentController.theModel.ACTScore}">
             </h:inputText>
             SAT Score: <h:inputText id="SATScore" value="#{studentController.theModel.SATScore}">
