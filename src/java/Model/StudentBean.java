@@ -4,6 +4,11 @@
  */
 package Model;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import javax.mail.Part;
+
 /**
  *
  * @author admin
@@ -30,7 +35,10 @@ public class StudentBean {
     private String majors;
     private String mixtapeURL;
     private String imageURL;
+    private Part image;   
+    private byte[] fileContent;
     private boolean mailList;
+    private String scheduleMessage;
 
     public StudentBean(String email, String password, String password2, String firstName, 
             String lastName, String phoneNumber, String provider, int ACTScore, int SATScore, 
@@ -194,6 +202,45 @@ public class StudentBean {
      */
     public void setMailList(boolean mailList) {
         this.mailList = mailList;
+    }
+
+    /**
+     * @return the image
+     */
+    public Part getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(Part image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the fileContent
+     */
+    public byte[] getFileContent() {
+        return fileContent;
+    }
+
+    /**
+     * @param fileContent the fileContent to set
+     */
+    public void setFileContent(byte[] fileContent) {
+        this.fileContent = fileContent;
+      }
+    
+    public String getScheduleMessage() {
+        return scheduleMessage;
+    }
+
+    /**
+     * @param scheduleMessage the scheduleMessage to set
+     */
+    public void setScheduleMessage(String scheduleMessage) {
+        this.scheduleMessage = scheduleMessage;
     }
     
 }

@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import Model.StudentBean;
 import edu.ilstu.it.TextSenderService;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -44,6 +45,7 @@ public class StudentController {
     private String getEmail;
     private ArrayList<StudentBean> students;
     private StudentBean criteria;
+    private String scheduleMessage;
 
     public StudentBean getGetModel() {
         return getModel;
@@ -122,7 +124,7 @@ public class StudentController {
     public String createProfile() {
         StudentDAO stu = new StudentDAO();
         int a  = stu.createStudent(theModel);
-        if(a == 11){
+        if(a == 1){
             loggedIn = true;
             return "studentPage.xhtml";
         }
@@ -156,7 +158,7 @@ public class StudentController {
         String to = destination;
 
         // Sender's email ID needs to be mentioned
-        String from = "";
+        String from = "ejwunde@ilstu.edu";
         
         // Assuming you are sending email from this host
         String host = "outlook.office365.com";
@@ -172,7 +174,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("", "");
+                return new PasswordAuthentication("ejwunde@ilstu.edu", "Cr@ck3rj@ck5");
             }
         });
 
@@ -212,11 +214,10 @@ public class StudentController {
     public String login(){
         StudentDAO stu = new StudentDAO();
         if(stu.studentLogin(theModel.getEmail(), theModel.getPassword())){
-            theModel =stu.getStudentInfo(theModel.getEmail());
+            theModel = stu.getStudentInfo(theModel.getEmail());
             loggedIn = true;
             return "studentPage.xhtml";
-        }
-        else{
+        } else {
             return "index.xhtml";
         }
     }
@@ -225,7 +226,7 @@ public class StudentController {
     //------------Needs upload. signUpStudent.xhtml needs upload too along with updateStudent.xhtml-----------
     public String update(){
         StudentDAO stu = new StudentDAO();
-        if(stu.updateStudent(theModel, theModel.getEmail()) == 11){
+        if(stu.updateStudent(theModel, resetEmail) == 1){
             return "studentPage.xhtml";
         }
         else{
@@ -233,17 +234,25 @@ public class StudentController {
         }
     }
     
-    public String isLoggedIn(ComponentSystemEvent event) {
+    public String loggedIn() {
         String navi = null;
-
-        if (!loggedIn) {
-
+        
+        if (!loggedIn) {           
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("index?faces-redirect=true");
-        }
+        } else resetEmail = theModel.getEmail();
         
         return navi;
+    }
+    
+    public String scheduleAppt(){
+        String appt = "";
+        appt = scheduleMessage;
+        
+        sendEmail(getModel.getEmail(), appt);
+        
+        return "getUniversityPage.xhtml";
     }
     
     public String checkToken(ComponentSystemEvent event) {
@@ -308,4 +317,40 @@ public class StudentController {
     public void setCriteria(StudentBean criteria) {
         this.criteria = criteria;
     }
+
+    public List<String> getCarriers() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        edu.ilstu.it.TextSender port = service.getTextSenderPort();
+        List<String> a = port.getCarriers();
+        return port.getCarriers();
+    }
+    
+    /**
+     * @return the scheduleMessage
+     */
+    public String getScheduleMessage() {
+        return scheduleMessage;
+    }
+
+    /**
+     * @param scheduleMessage the scheduleMessage to set
+     */
+    public void setScheduleMessage(String scheduleMessage) {
+        this.scheduleMessage = scheduleMessage;
+    }
+    
+        public void requestInformation(){
+        String message = "A user has requested that you update or include more information on your profile.";
+    
+        sendEmail(getModel.getEmail(), message);
+    }
+    
+    public void reportPage(){
+        String message = "The following user\'s profile page has been flagged as being offensive."
+                + "Please review.\n User: " + getModel.getFirstName() + " " + getModel.getLastName();  
+        
+        sendEmail("ejwunde@ilstu.edu", message);
+    }
+
 }
