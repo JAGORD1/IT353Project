@@ -253,8 +253,8 @@ public class StudentDAO implements StudentDAO_Interface{
             Connection DBConn = DatabaseHelper.dataBaseConnection();
             String queryString = "UPDATE app.student SET email = ?, first_name = ?, last_name = ?, "
                     + "act_score = ?, sat_score = ?, psat_nmsqt = ?, essay = ?, universities = ?, majors = ?, "
-                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ? "
-                    + "AND mail_list = ? WHERE email = ?";
+                    + "video = ?, highschool = ?, phone_number = ?, phone_carrier = ?, images = ?, "
+                    + "mail_list = ? WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, studentDAO.getEmail()); //email
             pstmt.setString(2, studentDAO.getFirstName()); //first_name
