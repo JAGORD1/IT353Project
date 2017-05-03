@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
       
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
@@ -56,15 +58,28 @@
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				 <div class="row">
+                                     
+        <script>
+            function reportPage(){
+                    reportPage();
+                            }  
+            function requestInformation() {
+                requestInformation();
+            }
+        </script>
+                                     <h:form>
+                       <!-- Remote Commands -->
+         <p:remoteCommand name="reportPage" actionListener="#{universityController.reportPage()}"/>
+         <p:remoteCommand name="requestInformation" actionListener="#{universityController.requestInformation()}"/>
+                                     </h:form>
+
         <div class="col-sm-8">
             <nav class="nav-sidebar">
                 <ul class="nav">
                     <li class="active"><a href="./index.xhtml">Home</a></li>
-                    <h:form>
-                    <li><h:commandButton id = "requestInfo" value ="Request Information" action = "#{universityController.requestInformation()}"/></li>
-                    <li><h:commandButton style ="background-color: red;" id = "report" value ="Report Page" action = "#{universityController.reportPage()}"/></li>
-                    </h:form>
                     <li><a href="scheduleAppointment.xhtml">Schedule Appointment</a></li>
+                    <li><a style = "cursor: pointer;" onclick="reportPage();">Report Page</a></li>
+                    <li><a style = "cursor: pointer;" onclick="requestInformation();">Request Information</a></li>
                     <li><h:outputLink value="#{universityController.getModel.applyURL}" target="#{universityController.getModel.applyURL}">Apply Online</h:outputLink></li>
                     <li class="nav-divider"></li>
                     <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>
@@ -91,8 +106,7 @@
         <div class ="form" style = "margin-left: 30px;">
          <h2>University profile</h2>
          <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
-         <br></br> 
-            
+         <br></br>     
          <h:form>
         <h:panelGrid columns="2">
             Email: <h:outputText id="email" value="#{universityController.getModel.email}">
@@ -109,14 +123,13 @@
             </h:outputText>
             Majors Offered: <h:outputText id="SATScore" value="#{universityController.getModel.majors}">
             </h:outputText>
-            
             Application: <h:outputText id="Application" value="#{universityController.getModel.applyURL}">
             </h:outputText>
             <h:outputText value="Video : "/> <iframe width="560" height="315" src="#{universityController.getModel.videoURL}" frameborder="0" allowfullscreen="true"></iframe>
             <h:outputText value="Image : "/> <h:graphicImage value="#{universityController.getModel.imageURL}"/>
-             Subscribed to Mailing List: <h:outputText value = "#{universityController.getModel.mailList}" id = "subscribe" />
+            Subscribed to Mailing List: <h:outputText value = "#{universityController.getModel.mailList}" id = "subscribe" />
         </h:panelGrid>
-         </h:form>
+        </h:form>
    </div>
             </div>
 		</div>

@@ -61,7 +61,7 @@
                     <li class="active"><a href="javascript:;">Home</a></li>
                     <li><a href="javascript:;">About</a></li>
                     <li><a href="#{universityController.theModel.applyURL}">Apply Online</a></li>
-                    <li><a href="./updateStudent.xhtml">Update Profile</a></li>
+                    <li><a href="./updateUniversity.xhtml">Update Profile</a></li>
                     <li class="nav-divider"></li>
                     <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>
                 </ul>
@@ -124,6 +124,9 @@ setInterval(function() {
             <h:outputText value="Image : "/> <h:graphicImage value="#{universityController.theModel.imageURL}"/>
              Subscribed to Mailing List: <h:outputText value = "#{universityController.theModel.mailList}" id = "subscribe" />
         <h:link value ="Update Profile" outcome ="./updateUniversity.xhtml"></h:link>
+            <h:outputText value="Image : "/> <h:graphicImage style="width: 800px;" value="#{universityController.theModel.imageURL}"/>
+             Subscribed to Mailing List: <h:outputText value = "#{universityController.theModel.mailList}" id = "subscribe" />
+        <h:link value ="Update Profile" outcome ="./updateStudent.xhtml"></h:link>
         </h:panelGrid>
         </h:form>
    </div>

@@ -6,11 +6,16 @@
     
     <f:event listener="#{adminController.isLoggedIn}" type="preRenderView" />
     <h:head>
-        <title>Facelet Title</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
+        <title>LinkedU|PaidUniversities</title>
     </h:head>
     <h:body>
         <h:form>
-       <h:dataTable id="empTableID" value="#{adminController.paid}" var="aRow"
+       <h:dataTable class="table table-striped" id="empTableID" value="#{adminController.paid}" var="aRow"
                      border="1" cellpadding="2" cellspacing="0">
             <h:column>
                 <f:facet name ="header">
