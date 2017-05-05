@@ -225,7 +225,6 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 university.setEssay(rs.getString("essay")); //essay
                 university.setPaid(rs.getBoolean("paid")); //paid
                 university.setMailList(rs.getBoolean("mail_list")); //mail_list
-                university.setApplyURL(rs.getString("applyurl")); //applyURL
                 
                 universityBeanCollection.add(university);
             }
@@ -273,7 +272,6 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 university.setEssay(rs.getString("essay")); //essay
                 university.setPaid(rs.getBoolean("paid")); //paid
                 university.setMailList(rs.getBoolean("mail_list")); //mail_list
-                university.setApplyURL(rs.getString("applyurl")); //applyURL
                 
                 universityBeanCollection.add(university);
             }
@@ -300,7 +298,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             Connection DBConn = DatabaseHelper.dataBaseConnection();
             String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
                     + "video_urls = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
-                    + "essay = ?, paid = ?, mail_list = ?, applyurl = ? WHERE email = ?";
+                    + "essay = ?, paid = ?, mail_list = ? WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name           
             pstmt.setString(2, universityDAO.getEmail()); //email
@@ -313,9 +311,8 @@ public class UniversityDAO implements UniversityDAO_Interface{
             pstmt.setDouble(8, universityDAO.getCost()); //cost
             pstmt.setString(9, universityDAO.getEssay()); //essay                                  
             pstmt.setBoolean(10, universityDAO.isPaid()); //paid
-            pstmt.setBoolean(11, universityDAO.getMailList()); //mail_list 
-            pstmt.setString(12, universityDAO.getApplyURL()); //applyURL
-            pstmt.setString(13, originalEmail); //original email 
+            pstmt.setBoolean(11, universityDAO.getMailList()); //mail_list           
+            pstmt.setString(12, originalEmail); //original email 
             
             rowCount = pstmt.executeUpdate();                      
                         
@@ -354,8 +351,8 @@ public class UniversityDAO implements UniversityDAO_Interface{
             university.setCost(rs.getDouble("cost")); //cost
             university.setEssay(rs.getString("essay")); //essay            
             university.setPaid(rs.getBoolean("paid")); //paid
+             university.setApplyURL(rs.getString("applyurl")); //applyURL
             university.setMailList(rs.getBoolean("mail_list")); //mail_list
-            university.setApplyURL(rs.getString("applyurl")); //applyURL
             
             DBConn.close();
         } catch (SQLException e) {
