@@ -38,6 +38,7 @@ public class UniversityController {
     private boolean loggedIn = false;
     private ArrayList<UniversityBean> universities;
     private UniversityBean criteria;
+    private UniversityBean ad;
     private String scheduleMessage;
     private String studentEmail;
  
@@ -65,6 +66,7 @@ public class UniversityController {
     public UniversityController() {
         theModel = new UniversityBean();
         criteria = new UniversityBean();
+        ad = new UniversityBean();
     }
 
     public UniversityBean getTheModel() {
@@ -124,6 +126,14 @@ public class UniversityController {
         return criteria;
     }
 
+    public UniversityBean getAd() {
+        return ad;
+    }
+
+    public void setAd(UniversityBean ad) {
+        this.ad = ad;
+    }
+
     /**
      * @param criteria the criteria to set
      */
@@ -134,11 +144,11 @@ public class UniversityController {
        
     public String universityAd(){
         randUniversity();
-        return criteria.getVideoURL();
+        return ad.getVideoURL();
     }
     
     public String universityLink(){
-        return criteria.getApplyURL();
+        return ad.getApplyURL();
     }
     
     private void randUniversity(){
@@ -146,7 +156,7 @@ public class UniversityController {
         universities = uni.searchUniversityByPaid(true);
         Random rand = new Random();
         int n = rand.nextInt(universities.size());
-        criteria = universities.get(n);
+        ad = universities.get(n);
     }
     
     
