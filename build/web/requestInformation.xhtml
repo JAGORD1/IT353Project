@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+    <link rel="stylesheet" href="css/style.css"></link>
+        <title>JSF 2.0 101</title>
+    </h:head>
+    <h:body>
+         
+         <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.xhtml">LinkedU</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="./index.xhtml">Sign In</a></li>
+      <li><a href="./signUpUniversity.xhtml">University Sign Up</a></li>
+      <li><a href="./signUpStudent.xhtml">Student Sign Up</a></li>
+      <li><a href="./searchUniversity.xhtml">Search University</a></li>
+       <li><a href="./searchStudent.xhtml">Search Student</a></li>
+    </ul>
+  </div>
+</nav>
+        <div class ="form" style = "margin-left: 30px;">
+              <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar" >
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+                                       <h2>University Profile</h2>
+                                        <h:graphicImage value="#{resource['images:linkedu.png']}" width="200" height="180"/>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						<h:outputText id="firstName" value="#{universityController.theModel.universityName}">
+                                                </h:outputText>
+					</div>
+					<div class="profile-usertitle-job">
+						Developer
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Follow</button>
+					<button type="button" class="btn btn-danger btn-sm">Message</button>
+                                       
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				 <div class="row">
+        <div class="col-sm-8">
+            <nav class="nav-sidebar">
+                <ul class="nav">
+                    <li class="active"><a href="javascript:;">Home</a></li>
+                    <li><a href="javascript:;">About</a></li>
+                    <li><a href="#{universityController.theModel.applyURL}">Apply Online</a></li>
+                    <li><a href="./scheduleAppointment.xhtml">Schedule Appointment</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-sm-2 col-sm-offset-8">
+        </div>
+    </div>
+				<!-- END MENU -->
+			</div>
+		</div>
+                  
+                  <script>
+                  var images = [
+  "https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-adult-landing-hero.ashx",
+  "https://www.petfinder.com/wp-content/uploads/2013/09/cat-black-superstitious-fcs-cat-myths-162286659.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_March_2010-1.jpg"
+]
+
+var imageHead = document.getElementById("image-head");
+var i = 0;
+
+setInterval(function() {
+      imageHead.style.backgroundImage = "url(" + images[i] + ")";
+      i = i + 1;
+      if (i == images.length) {
+      	i =  0;
+      }
+}, 7000);
+                  
+             </script>     
+                    <div id="image-head" class="jumbotron jumbotron-fluid">
+                    <div  class="container" style = "height: 200px;">
+    <h1 class="display-3">#{universityController.theModel.universityName}</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+<!--                <div style="height: 200px"></div>-->
+              
+		<div class="profile-content" style = "border: 1px solid grey; padding: 30px; max-width: 1000px;"> 	
+         <h:form>
+             <p:growl id="msgs" showDetail="true" />
+        <h:panelGrid columns="2"> 
+            email: <h:inputText value = "#{universityController.studentEmail}"></h:inputText>
+          Contact University: <h:inputTextarea rows = "10" cols = "75" id="Essay" value="#{universityController.scheduleMessage}">
+            
+            </h:inputTextarea> 
+          <p:outputLabel for="popup" value="Date:" />
+        <p:calendar id="popup" value="#{calendarView.date2}" />
+        <p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
+     
+          <h:commandButton id="submitID" value="Submit" action="#{universityController.scheduleAppt()}">   
+         
+              </h:commandButton>
+        </h:panelGrid>
+               <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+        <p:panelGrid id="display" columns="2" columnClasses="label,value">
+            <h:outputText value="Inline:" />
+            <h:outputText value="#{calendarView.date1}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Popup:" />
+            <h:outputText value="#{calendarView.date2}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Button:" />
+            <h:outputText value="#{calendarView.date3}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Event:" />
+            <h:outputText value="#{calendarView.date4}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="German:" />
+            <h:outputText value="#{calendarView.date5}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Restricted:" />
+            <h:outputText value="#{calendarView.date6}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Multiple:" />
+            <h:outputText value="#{calendarView.date7}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Effect:" />
+            <h:outputText value="#{calendarView.date8}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Mask:" />
+            <h:outputText value="#{calendarView.date9}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+ 
+            <h:outputText value="Datetime:" />
+            <h:outputText value="#{calendarView.date10}">
+                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            </h:outputText>
+ 
+            <h:outputText value="Time:" />
+            <h:outputText value="#{calendarView.date11}">
+                <f:convertDateTime pattern="HH:mm" />
+            </h:outputText>
+        </p:panelGrid>
+    </p:dialog>
+        </h:form>
+   </div>
+                </div>
+            </div>
+                </div>
+              </div>
+    </h:body>
+        
+</xhtml>
+

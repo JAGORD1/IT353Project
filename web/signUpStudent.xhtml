@@ -30,7 +30,7 @@
         <h:graphicImage value="http://linkeduniversity.com/wp-content/uploads/2015/09/linkedu.png" width="200" height="180"/>
         <div class ="form" style = "margin-left: 30px;">
         <h:form>
-             <h2>LinkedU Signup Student</h2><br/>
+             <h2>LinkedU Sign Up Student</h2><br/>
             <h:panelGrid columns="2">
             Email: <h:inputText id="email" value="#{studentController.theModel.email}">
             </h:inputText>
@@ -44,8 +44,9 @@
             </h:inputText>
             Phone Number: <h:inputText id="phoneNumber" value="#{studentController.theModel.phoneNumber}">
             </h:inputText>
-            Provider: <h:inputText id="provider" value="#{studentController.theModel.provider}">
-            </h:inputText>
+            Provider: <h:selectOneMenu id="provider" value="#{studentController.theModel.provider}">
+                <f:selectItems value="#{studentController.getCarriers()}" />
+            </h:selectOneMenu>           
             ACT Score: <h:inputText id="ACTScore" value="#{studentController.theModel.ACTScore}">
             </h:inputText>
             SAT Score: <h:inputText id="SATScore" value="#{studentController.theModel.SATScore}">
