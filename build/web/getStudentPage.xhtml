@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
@@ -35,7 +37,7 @@
         <div class ="form" style = "margin-left: 30px;">
               <div class="row profile">
 		<div class="col-md-3">
-			<div class="profile-sidebar" >
+	<div class="profile-sidebar" >
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
                                        <h2>Student Profile</h2>
@@ -58,27 +60,43 @@
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				 <div class="row">
+                                     
+        <script>
+            function reportPage(){
+                    reportPage();
+                            }  
+            function requestInformation() {
+                requestInformation();
+            }
+        </script>
+                                     <h:form>
+                       <!-- Remote Commands -->
+         <p:remoteCommand name="reportPage" actionListener="#{studentController.reportPage()}"/>
+         <p:remoteCommand name="requestInformation" actionListener="#{studentController.requestInformation()}"/>
+                                     </h:form>
+
         <div class="col-sm-8">
             <nav class="nav-sidebar">
                 <ul class="nav">
                     <li class="active"><a href="./index.xhtml">Home</a></li>
-                    <li><a href="./updateStudent.xhtml">Update Profile</a></li>
+                    <li><a style = "cursor: pointer;" onclick="reportPage();alert('Page Reported');">Report Page</a></li>
+                    <li><a style = "cursor: pointer;" onclick="requestInformation();alert('Information Request Sent');">Request Information</a></li>
+                    
                     <li class="nav-divider"></li>
-                    <li><a href="./resetPassword.xhtml">Reset Password</a></li>
-                    <li><a href="./index.xhtml"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>
+                    <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="col-sm-2 col-sm-offset-8">
-        </div>
+        
+        
     </div>
 				<!-- END MENU -->
 			</div>
 		</div>
                     <div class="jumbotron jumbotron-fluid">
                     <div class="container" style = "height: 200px;">
-    <h1 class="display-3">#{studentController.theModel.firstName} #{studentController.theModel.lastName}</h1>
-    <p class="lead">Email: #{studentController.theModel.email} Phone Number: #{studentController.theModel.phoneNumber}</p>
+     <h1 class="display-3">#{studentController.getModel.firstName} #{studentController.getModel.lastName}</h1>
+    <p class="lead">Email: #{studentController.getModel.email} Phone Number: #{studentController.getModel.phoneNumber}</p>
   </div>
 </div>
 		<div class="col-md-9">
@@ -88,50 +106,42 @@
 		<div class="profile-content" style = "border: 1px solid grey; padding: 30px; max-width: 1000px;"> 	
          <h:form>
         <h:panelGrid columns="2">
-            Email: <h:outputText id="email" value="#{studentController.theModel.email}">
+            Email: <h:outputText id="email" value="#{studentController.getModel.email}">
             </h:outputText>
-            First Name: <h:outputText id="firstName" value="#{studentController.theModel.firstName}">
+            First Name: <h:outputText id="firstName" value="#{studentController.getModel.firstName}">
             </h:outputText>
-            Last Name: <h:outputText id="lastName" value="#{studentController.theModel.lastName}">
+            Last Name: <h:outputText id="lastName" value="#{studentController.getModel.lastName}">
             </h:outputText>
-            Phone Number: <h:outputText id="phoneNumber" value="#{studentController.theModel.phoneNumber}">
+            Phone Number: <h:outputText id="phoneNumber" value="#{studentController.getModel.phoneNumber}">
             </h:outputText>
-            Provider: <h:outputText id="provider" value="#{studentController.theModel.provider}">
+            Provider: <h:outputText id="provider" value="#{studentController.getModel.provider}">
             </h:outputText>
-            ACT Score: <h:outputText id="ACTScore" value="#{studentController.theModel.ACTScore}">
+            ACT Score: <h:outputText id="ACTScore" value="#{studentController.getModel.ACTScore}">
             </h:outputText>
-            SAT Score: <h:outputText id="SATScore" value="#{studentController.theModel.SATScore}">
+            SAT Score: <h:outputText id="SATScore" value="#{studentController.getModel.SATScore}">
             </h:outputText>
-            PSAT/NMSQT Score: <h:outputText id="PSATScore" value="#{studentController.theModel.PSATScore}">
+            PSAT/NMSQT Score: <h:outputText id="PSATScore" value="#{studentController.getModel.PSATScore}">
             </h:outputText>
-            High School: <h:outputText id="highSchool" value="#{studentController.theModel.highSchool}">
+            High School: <h:outputText id="highSchool" value="#{studentController.getModel.highSchool}">
             </h:outputText>
-            Essay: <h:outputText id="Essay" value="#{studentController.theModel.essay}">
+            Essay: <h:outputText id="Essay" value="#{studentController.getModel.essay}">
             </h:outputText>
-            Universities (Separated by commas): <h:outputText id="universities" value="#{studentController.theModel.universities}">
+            Universities (Separated by commas): <h:outputText id="universities" value="#{studentController.getModel.universities}">
             </h:outputText>
-            Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.theModel.majors}">
+            Majors (Separated by commas): <h:outputText id="majors" value="#{studentController.getModel.majors}">
             </h:outputText>
-            <h:outputText value="Mixtape : "/> <iframe width="560" height="315" src="#{studentController.theModel.mixtapeURL}" frameborder="0" allowfullscreen="true"></iframe>
+            <h:outputText value="Mixtape : "/> <iframe width="560" height="315" src="#{studentController.getModel.mixtapeURL}" frameborder="0" allowfullscreen="true"></iframe>
 
-            <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.theModel.imageURL}"/>                       
-           
-             Subscribed to Mailing List: <h:outputText value = "#{studentController.theModel.mailList}" id = "subscribe" />
+            <h:outputText value="Image : "/> <h:graphicImage value="#{studentController.getModel.imageURL}"/>                       
+            
+            
+             Subscribed to Mailing List: <h:outputText value = "#{studentController.getModel.mailList}" id = "subscribe" />
          
              <!---->
               <!-- content -->
-          
-                
-          
-         
                 <hr></hr>
-      
-              <!-- /col-9 --> 
- 
-             
+              <!-- /col-9 -->  
              <!---->
-
-        <h:link value ="Update Profile" outcome ="./updateStudent.xhtml"></h:link>
         </h:panelGrid>
          </h:form> 
                 </div>
@@ -140,6 +150,9 @@
 	</div>
         
    </div>
+        <f:metadata>
+            <f:viewParam name="email" value="#{studentController.getEmail}" />
+        </f:metadata>
     </h:body>
         
 </xhtml>
