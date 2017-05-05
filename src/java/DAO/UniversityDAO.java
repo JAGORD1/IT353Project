@@ -225,6 +225,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 university.setEssay(rs.getString("essay")); //essay
                 university.setPaid(rs.getBoolean("paid")); //paid
                 university.setMailList(rs.getBoolean("mail_list")); //mail_list
+                university.setApplyURL(rs.getString("applyurl"));
                 
                 universityBeanCollection.add(university);
             }
