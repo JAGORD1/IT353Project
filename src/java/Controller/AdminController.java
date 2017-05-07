@@ -12,7 +12,7 @@ import Model.UniversityBean;
 import java.util.ArrayList;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
@@ -21,11 +21,11 @@ import javax.faces.event.ComponentSystemEvent;
  * @author IT353S706
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AdminController {
 
     private AdminBean theModel;
-    private ArrayList<UniversityBean> paid;
+    private ArrayList<UniversityBean> universities;
     private boolean loggedIn = false;
 
     public AdminBean getTheModel() {
@@ -51,7 +51,7 @@ public class AdminController {
         AdminDAO adm = new AdminDAO();
         if(adm.AdminLogin(theModel.getEmail(), theModel.getPassword())){
             loggedIn = true;
-            return "markPaid.xhtml";
+            return "adminPage.xhtml";
         }
         else{
             return "admin.xhtml";
@@ -61,22 +61,26 @@ public class AdminController {
     
     public ArrayList<UniversityBean> getPaid() {
         UniversityDAO data = new UniversityDAO();
-        paid = data.searchUniversityByPaid(Boolean.TRUE);
-        paid.addAll(data.searchUniversityByPaid(Boolean.FALSE));
-        return paid;
+        universities = data.searchUniversityByPaid(Boolean.TRUE);
+        universities.addAll(data.searchUniversityByPaid(Boolean.FALSE));
+        return universities;
     }
 
-    public void setPaid(ArrayList<UniversityBean> paid) {
-        this.paid = paid;
+    public void setUniversities(ArrayList<UniversityBean> universities) {
+        this.universities = universities;
+    }
+    
+    public ArrayList<UniversityBean> getUniversities(){
+        return universities;
     }
     
     public String submitPaid() {
         UniversityDAO data = new UniversityDAO();
-        for(UniversityBean bean: paid) {
+        for(UniversityBean bean: universities) {
             data.updateUniversity(bean, bean.getEmail());
         }
         
-        return "index.xhtml";
+        return "adminPage.xhtml";
     }
     
     public String isLoggedIn(ComponentSystemEvent event) {
@@ -99,5 +103,13 @@ public class AdminController {
     public AdminController() {
         theModel = new AdminBean();
     }
+    
+    
+    public String getReport(){
+        UniversityDAO uni = new UniversityDAO();
+        universities = uni.getReport();
+        return "adminReport.xhtml";
+    }
+    
     
 }
