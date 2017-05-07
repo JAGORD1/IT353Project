@@ -28,6 +28,8 @@ public class UniversityBean {
     private boolean mailList;
     private boolean paid;
     private String applyURL;
+    private int AdViews;
+    private int profileViews;
 
     public UniversityBean(String email, String password, String password2, 
             String universityName, String state, String city, double cost, 
@@ -176,5 +178,34 @@ public class UniversityBean {
     public void setApplyURL(String applyURL) {
         this.applyURL = applyURL;
     }
+
+    /**
+     * @return the AdViews
+     */
+    public int getAdViews() {
+        return AdViews;
+    }
+
+    /**
+     * @param AdViews the AdViews to set
+     */
+    public void setAdViews(int AdViews) {
+        this.AdViews = AdViews;
+    }
+
+    /**
+     * @return the profileViews
+     */
+    public int getProfileViews() {
+        return profileViews;
+    }
+
+    /**
+     * @param profileViews the profileViews to set
+     */
+    public void setProfileViews(int profileViews) {
+        this.profileViews = profileViews;
+    }
+    
     
 }
