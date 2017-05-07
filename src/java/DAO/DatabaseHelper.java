@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.UniversityBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class DatabaseHelper {
     public static String percentWrap(String word){       
         return "%" + word + "%";
     }
-    
+      
     /**
      * 
      * @return a connection to the database.

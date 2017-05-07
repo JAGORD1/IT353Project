@@ -19,4 +19,8 @@ public interface UniversityDAO_Interface {
     public int updateUniversity(UniversityBean universityDAO, String originalEmail);
     public UniversityBean getUniversityInfo(String email);
     public int changePassword(String email, String password);
+    
+    public ArrayList<UniversityBean> getReport();
+    public int addAdview(String email);
+    public int addProfileView(String email);
 }

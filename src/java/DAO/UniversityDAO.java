@@ -225,6 +225,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 university.setEssay(rs.getString("essay")); //essay
                 university.setPaid(rs.getBoolean("paid")); //paid
                 university.setMailList(rs.getBoolean("mail_list")); //mail_list
+                university.setApplyURL(rs.getString("applyurl")); //applyURL
                 
                 universityBeanCollection.add(university);
             }
@@ -272,6 +273,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
                 university.setEssay(rs.getString("essay")); //essay
                 university.setPaid(rs.getBoolean("paid")); //paid
                 university.setMailList(rs.getBoolean("mail_list")); //mail_list
+                university.setApplyURL(rs.getString("applyurl")); //applyURL
                 
                 universityBeanCollection.add(university);
             }
@@ -298,7 +300,7 @@ public class UniversityDAO implements UniversityDAO_Interface{
             Connection DBConn = DatabaseHelper.dataBaseConnection();
             String queryString = "UPDATE app.university SET university_name = ?, email = ?, "
                     + "video_urls = ?, images = ?, major = ?, state = ?, city = ?, cost = ?, "
-                    + "essay = ?, paid = ?, mail_list = ? WHERE email = ?";
+                    + "essay = ?, paid = ?, mail_list = ?, applyurl = ? WHERE email = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(queryString);
             pstmt.setString(1, universityDAO.getUniversityName()); //university name           
             pstmt.setString(2, universityDAO.getEmail()); //email
@@ -311,8 +313,9 @@ public class UniversityDAO implements UniversityDAO_Interface{
             pstmt.setDouble(8, universityDAO.getCost()); //cost
             pstmt.setString(9, universityDAO.getEssay()); //essay                                  
             pstmt.setBoolean(10, universityDAO.isPaid()); //paid
-            pstmt.setBoolean(11, universityDAO.getMailList()); //mail_list           
-            pstmt.setString(12, originalEmail); //original email 
+            pstmt.setBoolean(11, universityDAO.getMailList()); //mail_list 
+            pstmt.setString(12, universityDAO.getApplyURL()); //applyURL
+            pstmt.setString(13, originalEmail); //original email 
             
             rowCount = pstmt.executeUpdate();                      
                         
@@ -351,8 +354,8 @@ public class UniversityDAO implements UniversityDAO_Interface{
             university.setCost(rs.getDouble("cost")); //cost
             university.setEssay(rs.getString("essay")); //essay            
             university.setPaid(rs.getBoolean("paid")); //paid
-             university.setApplyURL(rs.getString("applyurl")); //applyURL
             university.setMailList(rs.getBoolean("mail_list")); //mail_list
+            university.setApplyURL(rs.getString("applyurl")); //applyURL
             
             DBConn.close();
         } catch (SQLException e) {
@@ -385,5 +388,124 @@ public class UniversityDAO implements UniversityDAO_Interface{
         return rowCount;  
     }
     
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public ArrayList<UniversityBean> getReport(){
+        ArrayList<UniversityBean> universityBeanCollection = new ArrayList<>();        
+        try {
+            Connection DBConn = DatabaseHelper.dataBaseConnection();
+            
+            String queryString = "SELECT * FROM app.university";
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            
+            ResultSet rs = pstmt.executeQuery(); //sql look up
+            
+            //for each record received
+            while (rs.next()) {
+                UniversityBean university = new UniversityBean();
+
+                university.setUniversityName(rs.getString("university_name")); //university
+                university.setEmail(rs.getString("email")); //email        
+                university.setVideoURL(rs.getString("video_urls")); //video
+                university.setImageURL(rs.getString("images")); //images
+                university.setMajors(rs.getString("major")); //major
+                university.setState(rs.getString("state")); //state 
+                university.setCity(rs.getString("city")); //city
+                university.setCost(rs.getDouble("cost")); //cost
+                university.setEssay(rs.getString("essay")); //essay
+                university.setPaid(rs.getBoolean("paid")); //paid
+                university.setMailList(rs.getBoolean("mail_list")); //mail_list
+                university.setApplyURL(rs.getString("applyurl")); //applyURL
+                university.setAdViews(rs.getInt("ad_views")); //ad_views
+                university.setProfileViews(rs.getInt("profile_views")); //profile_views
+                
+                universityBeanCollection.add(university);
+            }
+            
+            rs.close();
+            
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return universityBeanCollection; 
+    }
     
+    @Override
+    public int addAdview(String email){       
+        int rowCount = 0;
+        System.out.println("addView is here");
+        System.out.println("email "+email);
+        
+        System.out.println("addView is here");
+        try {
+            Connection DBConn = DatabaseHelper.dataBaseConnection();
+            
+            String queryString = "SELECT ad_views FROM app.university WHERE email = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setString(1, email); //email
+            
+            ResultSet rs = pstmt.executeQuery(); //sql look up
+            
+            UniversityBean uni = new UniversityBean();
+            
+            if (rs.next()) {
+                uni.setEmail(email);
+                uni.setAdViews(rs.getInt("ad_views"));
+                //uni.setProfileViews(rs.getInt("profileViews"));
+                System.out.println("views "+uni.getAdViews());
+            }           
+            rs.close();                  
+        
+            queryString = "UPDATE app.university SET ad_views = ? WHERE email = ?";
+            pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setInt(1, uni.getAdViews() + 1); //ad_views          
+            pstmt.setString(2, uni.getEmail()); //email            
+            
+            rowCount = pstmt.executeUpdate();                      
+                        
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return rowCount;    
+    }
+    
+    @Override
+    public int addProfileView(String email){
+        int rowCount = 0;
+        try {
+            Connection DBConn = DatabaseHelper.dataBaseConnection();
+            
+            String queryString = "SELECT profile_views FROM app.university WHERE email = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setString(1, email); //email
+            
+            ResultSet rs = pstmt.executeQuery(); //sql look up
+            
+            UniversityBean uni = new UniversityBean();
+            
+            if (rs.next()) {
+                uni.setEmail(email);
+                //uni.setAdViews(rs.getInt("AdViews"));
+                uni.setProfileViews(rs.getInt("profile_views"));
+            }           
+            rs.close();                  
+        
+            queryString = "UPDATE app.university SET profile_views = ? WHERE email = ?";
+            pstmt = DBConn.prepareStatement(queryString);
+            pstmt.setInt(1, uni.getProfileViews() + 1); //ad_views          
+            pstmt.setString(2, uni.getEmail()); //email            
+            
+            rowCount = pstmt.executeUpdate();                      
+                        
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return rowCount;
+    }
 }
